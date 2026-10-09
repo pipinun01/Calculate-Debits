@@ -179,9 +179,9 @@ POST /tg/webhook (X-Telegram-Bot-Api-Secret-Token) · GET /health
 
 | Фаза | Статус | Дата | Заметки |
 |---|---|---|---|
-| 0 — Окружение и скаффолд | ✅ готово, кроме `docker compose up` | 2026-10-09 | .NET 10.0.112, Docker 29, `backend/Debits.slnx` (5 src + 3 test), `miniapp/` (Vite 8, React 19, Tailwind 4, oxlint, prettier, vitest), `deploy/docker-compose.dev.yml`. `dotnet build/test`, `npm run build/lint/test` зелёные. Docker-сокет не проверен: сессия стартовала до добавления в группу `docker`, нужен перезапуск. FluentAssertions зафиксирован на 7.2.2 (8.x платный). Коммитов нет |
-| 1 — Домен, БД, тенантность | ⏳ следующая | | |
-| 2 — Бот-фундамент | | | Токен `@Debitttbot` уже в `.env` |
+| 0 — Окружение и скаффолд | ✅ готово | 2026-10-09 | .NET 10.0.112, Docker 29, `backend/Debits.slnx` (5 src + 3 test), `miniapp/` (Vite 8, React 19, Tailwind 4, oxlint, prettier, vitest), `deploy/docker-compose.dev.yml`. `dotnet build/test`, `npm run build/lint/test` зелёные. `docker compose up` проверен вечером. FluentAssertions зафиксирован на 7.2.2 (8.x платный). Коммит `b989e5f` |
+| 1 — Домен, БД, тенантность | ✅ готово | 2026-10-09 | Сущности + enum'ы (в БД lowercase-текст), `UzTranslit`, `SearchKey` (x→h, q→k сворачиваются), `UzNumberParser` (uz-Latn/uz-Cyrl/ru, 70+ кейсов), `DuePhraseParser`, `AllocationRecalculator` (FIFO + target_debt + кредит), `CustomerMatcher` (Exact/Ambiguous/None, правило «имя без тега»). `DebitsDbContext`: именованные фильтры `Tenant` и `SoftDelete`, SaveChanges проставляет/проверяет `shop_id` и timestamps. Миграция `Initial` + views. `PostgresCustomerSearch` на `similarity()`. Тесты: 186 Domain, 4 Application, 15 Integration (Testcontainers). Отличия от плана: `IClock` → встроенный `TimeProvider`; `IDebitsDbContext` в Application (ссылка на EF Core); id сущностей — Guid v7, `pending_entries`/`reminder_log`/`audit_events`/`payment_allocations` — bigserial |
+| 2 — Бот-фундамент | ⏳ следующая | | Токен `@Debitttbot` уже в `.env` |
 | 3 — Сервисы + REST + auth | | | |
 | 4 — Голос и текст | | | Нужен `GROQ_API_KEY` |
 | 5 — Mini App | | | |
@@ -189,4 +189,4 @@ POST /tg/webhook (X-Telegram-Bot-Api-Secret-Token) · GET /health
 | 7 — Отчёты, экспорт, i18n | | | |
 | 8 — Деплой | | | Перед деплоем сделать revoke токена в BotFather, он проходил через чат |
 
-**Следующий шаг (вечер 2026-10-09):** перезапустить Claude Code из нового терминала → `docker compose -f deploy/docker-compose.dev.yml up -d` → первый коммит «Phase 0: scaffold» → фаза 1.
+**Следующий шаг:** фаза 2 — polling-бот, `UpdateDispatcher`, `conversation_states`, `/start` с мастером магазина и invite-ссылками, `/menu`, `/shops`, `/language`, `/invite`, строки в 3 локалях. Проверка с двух Telegram-аккаунтов.
