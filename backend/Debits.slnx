@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Debits.Api/Debits.Api.csproj" />
+    <Project Path="src/Debits.Application/Debits.Application.csproj" />
+    <Project Path="src/Debits.Bot/Debits.Bot.csproj" />
+    <Project Path="src/Debits.Domain/Debits.Domain.csproj" />
+    <Project Path="src/Debits.Infrastructure/Debits.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Debits.Application.Tests/Debits.Application.Tests.csproj" />
+    <Project Path="tests/Debits.Domain.Tests/Debits.Domain.Tests.csproj" />
+    <Project Path="tests/Debits.Integration.Tests/Debits.Integration.Tests.csproj" />
+  </Folder>
+</Solution>

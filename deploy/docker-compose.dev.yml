@@ -1,0 +1,23 @@
+name: debits-dev
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: debits-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: debits
+      POSTGRES_USER: debits
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-debits}
+      TZ: Asia/Tashkent
+    ports:
+      - "5432:5432"
+    volumes:
+      - debits-pgdata:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U debits -d debits"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  debits-pgdata:

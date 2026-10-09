@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50 antialiased" lang="uz"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Mijozlar - Nasiya Daftari</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+            }
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(124, 58, 237, 0.08)',
+            'card': '0 2px 14px rgba(0, 0, 0, 0.04)',
+            'fab': '0 10px 25px -5px rgba(124, 58, 237, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styling for Mobile/Telegram Viewport -->
+<style data-purpose="custom-layout">
+    body {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .safe-top {
+      padding-top: env(safe-area-inset-top, 12px);
+    }
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+    /* Hide scrollbars for filter chips horizontal list */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style data-purpose="gradient-backdrop">
+    .hero-gradient {
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 40%, #e879f9 75%, #f472b6 100%);
+    }
+  </style>
+</head>
+<body class="h-full bg-slate-100 flex justify-center text-slate-800">
+<!-- BEGIN: TelegramViewport -->
+<!-- Container mimicking Telegram WebApp / iOS Mobile (390px max-width) -->
+<div class="w-full max-w-[412px] min-h-screen bg-slate-50 flex flex-col relative shadow-2xl overflow-x-hidden pb-28" data-purpose="mobile-viewport">
+<!-- BEGIN: TopBar -->
+<header class="sticky top-0 z-30 bg-slate-50/90 backdrop-blur-md px-4 pt-3 pb-2 safe-top border-b border-slate-200/50">
+<div class="flex items-center justify-between">
+<!-- Shop Switcher Pill -->
+<button aria-label="Do'konni tanlash" class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-slate-200/80 shadow-sm active:scale-95 transition-transform" type="button">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-xs font-semibold text-slate-700 tracking-tight">Do'kon: Aloqa bozori</span>
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Right Quick Actions -->
+<div class="flex items-center gap-1.5">
+<!-- Notification Button -->
+<button aria-label="Bildirishnomalar" class="w-9 h-9 rounded-full bg-white flex items-center justify-center border border-slate-200/80 text-slate-600 shadow-sm relative active:bg-slate-50" type="button">
+<svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white"></span>
+</button>
+<!-- Shop Settings / Switch button -->
+<button aria-label="Do'konlar ro'yxati" class="w-9 h-9 rounded-full bg-white flex items-center justify-center border border-slate-200/80 text-slate-600 shadow-sm active:bg-slate-50" type="button">
+<svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: MainContent -->
+<main class="px-4 pt-3 flex-1">
+<!-- BEGIN: HeroBalanceCard -->
+<!-- Gradient card inspired by reference design -->
+<section class="relative rounded-3xl p-5 text-white overflow-hidden shadow-soft hero-gradient mb-5" data-purpose="hero-balance">
+<!-- Subtle background shapes for fintech vibe -->
+<div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+<div class="absolute -left-10 -bottom-10 w-36 h-36 rounded-full bg-purple-900/15 blur-lg pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-xs font-semibold text-purple-100 tracking-wide uppercase">Jami nasiyalar</span>
+<span class="p-1 rounded-full bg-white/20 backdrop-blur-sm">
+<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span>
+</div>
+<!-- Total Amount -->
+<div class="flex items-baseline gap-1.5 mb-4">
+<h1 class="text-3xl font-extrabold tracking-tight">45 200 000</h1>
+<span class="text-sm font-semibold text-purple-200">UZS</span>
+</div>
+<!-- Sub Badges Indicator Row -->
+<div class="flex items-center gap-2 flex-wrap">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/25 backdrop-blur-md text-[11px] font-medium text-white shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+<span>38 faol mijoz</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-500/35 backdrop-blur-md text-[11px] font-semibold text-rose-100 border border-rose-300/30 shadow-xs">
+<svg class="w-3 h-3 text-rose-200" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path>
+</svg>
+<span>7 ta muddati o'tgan</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroBalanceCard -->
+<!-- BEGIN: SearchAndFilters -->
+<section class="mb-4 space-y-2.5" data-purpose="search-and-filters">
+<!-- Search Input Bar -->
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<input class="w-full bg-white border border-slate-200/90 rounded-2xl pl-10 pr-10 py-2.5 text-xs font-medium text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 shadow-card transition-all" placeholder="Mijoz ismi yoki taxallusi..." type="text"/>
+<!-- Mic icon inside search for voice recognition -->
+<button aria-label="Ovoz bilan qidirish" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-600 transition-colors" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Filter Chips Row -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+<!-- Active Chip -->
+<button class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-white shadow-xs shrink-0" type="button">
+            Hammasi (38)
+          </button>
+<button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 border border-slate-200/90 hover:bg-slate-50 shrink-0" type="button">
+            Qarzdorlar (7)
+          </button>
+<button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 border border-slate-200/90 hover:bg-slate-50 shrink-0" type="button">
+            Yaqinda to'laydiganlar
+          </button>
+<button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-slate-600 border border-slate-200/90 hover:bg-slate-50 shrink-0" type="button">
+            To'langanlar
+          </button>
+</div>
+</section>
+<!-- END: SearchAndFilters -->
+<!-- BEGIN: CustomerList -->
+<section class="space-y-2.5" data-purpose="customer-cards">
+<div class="flex items-center justify-between px-1">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mijozlar ro'yxati</span>
+<span class="text-[11px] text-slate-400 font-medium">Oxirgi harakatlar</span>
+</div>
+<!-- Customer Card 1 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/70 shadow-card flex items-center justify-between active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3">
+<!-- Initials Avatar -->
+<div class="w-11 h-11 rounded-2xl bg-rose-50 text-rose-600 font-bold flex items-center justify-center text-sm border border-rose-100/80 shrink-0">
+              AA
+            </div>
+<div>
+<h2 class="text-xs font-bold text-slate-900 leading-tight">Ahmad aka (stomatolog)</h2>
+<p class="text-[11px] text-slate-400 mt-0.5 font-medium">+998 90 123-45-67</p>
+<div class="mt-1">
+<span class="inline-flex items-center gap-1 text-[10px] font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+<span class="w-1 h-1 rounded-full bg-rose-500 animate-ping"></span>
+                  3 kun kechikkan
+                </span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-xs font-extrabold text-slate-900">1 250 000</span>
+<span class="text-[10px] text-slate-400 uppercase font-semibold">UZS</span>
+</div>
+</article>
+<!-- Customer Card 2 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/70 shadow-card flex items-center justify-between active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 font-bold flex items-center justify-center text-sm border border-amber-100/80 shrink-0">
+              BO
+            </div>
+<div>
+<h2 class="text-xs font-bold text-slate-900 leading-tight">Botir aka (usta)</h2>
+<p class="text-[11px] text-slate-400 mt-0.5 font-medium">+998 93 456-78-90</p>
+<div class="mt-1">
+<span class="inline-flex items-center text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/70">
+                  Muddati: Bugun
+                </span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-xs font-extrabold text-slate-900">480 000</span>
+<span class="text-[10px] text-slate-400 uppercase font-semibold">UZS</span>
+</div>
+</article>
+<!-- Customer Card 3 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/70 shadow-card flex items-center justify-between active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 font-bold flex items-center justify-center text-sm border border-purple-100/80 shrink-0">
+              NO
+            </div>
+<div>
+<h2 class="text-xs font-bold text-slate-900 leading-tight">Nodira opa (bog'cha)</h2>
+<p class="text-[11px] text-slate-400 mt-0.5 font-medium">+998 97 789-01-23</p>
+<div class="mt-1">
+<span class="inline-flex items-center text-[10px] font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/60">
+                  5 kundan keyin
+                </span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-xs font-extrabold text-slate-900">2 100 000</span>
+<span class="text-[10px] text-slate-400 uppercase font-semibold">UZS</span>
+</div>
+</article>
+<!-- Customer Card 4 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/70 shadow-card flex items-center justify-between active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-sm border border-blue-100/80 shrink-0">
+              JR
+            </div>
+<div>
+<h2 class="text-xs font-bold text-slate-900 leading-tight">Jasur (novvoyxona)</h2>
+<p class="text-[11px] text-slate-400 mt-0.5 font-medium">+998 94 234-56-78</p>
+<div class="mt-1">
+<span class="inline-flex items-center text-[10px] font-medium text-slate-500 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200/60">
+                  Muddati: 25-mart
+                </span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-xs font-extrabold text-slate-900">320 000</span>
+<span class="text-[10px] text-slate-400 uppercase font-semibold">UZS</span>
+</div>
+</article>
+<!-- Customer Card 5 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/70 shadow-card flex items-center justify-between active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 font-bold flex items-center justify-center text-sm border border-emerald-100/80 shrink-0">
+              ST
+            </div>
+<div>
+<h2 class="text-xs font-bold text-slate-900 leading-tight">Sardor (taksi)</h2>
+<p class="text-[11px] text-slate-400 mt-0.5 font-medium">+998 91 345-67-89</p>
+<div class="mt-1">
+<span class="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
+<svg class="w-2.5 h-2.5" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+                  To'langan
+                </span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-xs font-extrabold text-slate-400 line-through">95 000</span>
+<span class="text-[10px] text-emerald-500 uppercase font-semibold">0 UZS</span>
+</div>
+</article>
+</section>
+<!-- END: CustomerList -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: FloatingActionButton -->
+<!-- Quick voice/manual debt entry button -->
+<div class="fixed bottom-20 right-5 z-40 max-w-[412px] pointer-events-auto">
+<button aria-label="Yangi qarz yoki mijoz qo'shish" class="w-14 h-14 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-fab flex items-center justify-center active:scale-90 transition-transform focus:outline-none" type="button">
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- END: FloatingActionButton -->
+<!-- BEGIN: TelegramTabBar -->
+<!-- Native-style iOS / Telegram Mini App Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none" data-purpose="bottom-navigation">
+<div class="w-full max-w-[412px] bg-white/95 backdrop-blur-xl border-t border-slate-200/80 px-6 pt-2 safe-bottom flex items-center justify-between pointer-events-auto shadow-lg">
+<!-- Tab: Mijozlar (Active) -->
+<button class="flex flex-col items-center gap-1 py-1 text-brand-600 focus:outline-none group" type="button">
+<div class="p-1 rounded-xl bg-brand-50">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-bold tracking-tight">Mijozlar</span>
+</button>
+<!-- Tab: Qarzlar -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-400 hover:text-slate-600 focus:outline-none" type="button">
+<div class="p-1">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight">Qarzlar</span>
+</button>
+<!-- Tab: Hisobotlar -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-400 hover:text-slate-600 focus:outline-none" type="button">
+<div class="p-1">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight">Hisobotlar</span>
+</button>
+<!-- Tab: Sozlamalar -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-400 hover:text-slate-600 focus:outline-none" type="button">
+<div class="p-1">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight">Sozlamalar</span>
+</button>
+</div>
+</nav>
+<!-- END: TelegramTabBar -->
+</div>
+<!-- END: TelegramViewport -->
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="ui-interactions">
+    // Simple filter button active toggle state for mobile user feedback
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterButtons = document.querySelectorAll('[data-purpose="search-and-filters"] button');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => {
+            b.classList.remove('bg-slate-900', 'text-white');
+            b.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200/90');
+          });
+          btn.classList.add('bg-slate-900', 'text-white');
+          btn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200/90');
+        });
+      });
+    });
+  </script>
+<!-- END: InteractiveScripts -->
+</body></html>

@@ -1,0 +1,26 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# references, not part of the product
+imges/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Node
+node_modules/
+dist/
+*.local
+npm-debug.log*
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
