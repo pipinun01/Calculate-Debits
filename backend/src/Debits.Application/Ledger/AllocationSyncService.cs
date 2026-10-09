@@ -15,7 +15,7 @@ public sealed class AllocationSyncService(IDebitsDbContext db)
     {
         // All ids incl. soft-deleted rows: their stale allocations must go too.
         var allIds = await db.Transactions
-            .IgnoreQueryFilters(["SoftDelete"])
+            .IgnoreQueryFilters([QueryFilters.SoftDelete])
             .Where(t => t.CustomerId == customerId)
             .Select(t => t.Id)
             .ToListAsync(cancellationToken);

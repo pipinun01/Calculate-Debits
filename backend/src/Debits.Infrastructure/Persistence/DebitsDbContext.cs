@@ -10,8 +10,8 @@ namespace Debits.Infrastructure.Persistence;
 public sealed class DebitsDbContext(DbContextOptions<DebitsDbContext> options, ITenantContext tenant, TimeProvider clock)
     : DbContext(options), IDebitsDbContext
 {
-    public const string TenantFilter = "Tenant";
-    public const string SoftDeleteFilter = "SoftDelete";
+    public const string TenantFilter = QueryFilters.Tenant;
+    public const string SoftDeleteFilter = QueryFilters.SoftDelete;
 
     private readonly ITenantContext _tenant = tenant;
 

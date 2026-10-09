@@ -5,5 +5,10 @@
   <ItemGroup>
     <PackageReference Include="Telegram.Bot" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization/Resources/*.json" WithCulture="false" />
   </ItemGroup>
 </Project>

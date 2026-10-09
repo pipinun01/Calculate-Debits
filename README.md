@@ -14,9 +14,16 @@ cp .env.example .env                       # заполнить BOT_TOKEN и т.
 docker compose -f deploy/docker-compose.dev.yml up -d   # Postgres 16 на :5432
 cd backend && dotnet build && dotnet test    # интеграционные тесты поднимают Postgres через Testcontainers (нужен Docker)
 cd backend && dotnet ef database update -p src/Debits.Infrastructure   # применить миграции к dev-базе
-cd backend/src/Debits.Api && dotnet run    # http://localhost:5080/health
+cd backend/src/Debits.Api && dotnet run    # http://localhost:5080/health, бот стартует в polling, если в .env есть BOT_TOKEN
 cd miniapp && npm install && npm run dev   # http://localhost:5173
 ```
+
+## Бот
+
+`.env` в корне подхватывается автоматически (`BOT_TOKEN`, `BOT_MODE=polling|webhook`, `PUBLIC_URL`, `BOT_WEBHOOK_SECRET`, `MINIAPP_URL`).
+В dev бот работает через long polling. В prod `BOT_MODE=webhook`: на старте ставится webhook `PUBLIC_URL/tg/webhook` с секретом.
+Команды: `/start` (мастер магазина или вход по `?start=inv_<token>`), `/menu`, `/shops`, `/invite` (владелец), `/language`, `/help`, `/cancel`.
+Строки бота: `backend/src/Debits.Bot/Localization/Resources/bot.{uz-Latn,uz-Cyrl,ru}.json`, набор ключей должен совпадать (есть тест).
 
 ## Миграции
 

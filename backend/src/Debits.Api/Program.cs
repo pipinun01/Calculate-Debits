@@ -1,3 +1,4 @@
+using Debits.Api.Configuration;
 using Debits.Application.DependencyInjection;
 using Debits.Bot.DependencyInjection;
 using Debits.Infrastructure.DependencyInjection;
@@ -10,6 +11,7 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    builder.Configuration.AddDotEnv(builder.Environment.ContentRootPath);
 
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
