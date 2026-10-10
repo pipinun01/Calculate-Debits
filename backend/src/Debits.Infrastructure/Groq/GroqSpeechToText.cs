@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Debits.Application.Abstractions;
 using Debits.Domain.Text;
+using Debits.Infrastructure.LocalStt;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -17,8 +18,9 @@ namespace Debits.Infrastructure.Groq;
 /// auto-detection reads Russian well. Neither setting works for both languages, so every recording is transcribed twice
 /// in parallel (auto with a Russian prompt, and forced Uzbek with an Uzbek prompt + the shop's customer names) and the
 /// result is chosen by content: Uzbek number / debt words in the Uzbek pass mean the speech was Uzbek.
+/// When the self-hosted Uzbek model (<see cref="LocalSttClient"/>) is switched on, it takes the Uzbek pass and Groq is its fallback.
 /// </summary>
-public sealed class GroqSpeechToText(IHttpClientFactory httpFactory, IOptions<GroqOptions> options, ILogger<GroqSpeechToText> logger) : ISpeechToText
+public sealed class GroqSpeechToText(IHttpClientFactory httpFactory, IOptions<GroqOptions> options, ILogger<GroqSpeechToText> logger, LocalSttClient? local = null) : ISpeechToText
 {
     /// <summary>Example phrases steer spelling far better than a word list ("besh yuz ellik ming" instead of "бейшус элик минсом").</summary>
     public const string UzbekPrompt =
@@ -63,7 +65,7 @@ public sealed class GroqSpeechToText(IHttpClientFactory httpFactory, IOptions<Gr
         }
 
         var autoTask = TryCallAsync(bytes, fileName, null, RussianPrompt, cancellationToken);
-        var uzbekTask = TryCallAsync(bytes, fileName, "uz", uzbekPrompt, cancellationToken);
+        var uzbekTask = UzbekPassAsync(bytes, fileName, uzbekPrompt, cancellationToken);
         var (auto, autoError) = await autoTask;
         var (uzbek, uzbekError) = await uzbekTask;
 
@@ -88,6 +90,16 @@ public sealed class GroqSpeechToText(IHttpClientFactory httpFactory, IOptions<Gr
         }
 
         return uzbek ?? auto ?? throw (uzbekError ?? autoError)!;
+    }
+
+    private async Task<(Transcript? Result, Exception? Error)> UzbekPassAsync(byte[] bytes, string fileName, string prompt, CancellationToken ct)
+    {
+        if (local is { IsConfigured: true } && await local.TryTranscribeUzbekAsync(bytes, fileName, prompt, ct) is { } transcript)
+        {
+            return (transcript, null);
+        }
+
+        return await TryCallAsync(bytes, fileName, "uz", prompt, ct);
     }
 
     /// <summary>Detected as Russian and written only with Russian letters.</summary>

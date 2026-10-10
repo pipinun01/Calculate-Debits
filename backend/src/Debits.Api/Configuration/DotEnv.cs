@@ -19,6 +19,7 @@ public static class DotEnv
         ["GROQ_API_KEY"] = "Groq:ApiKey",
         ["JWT_SECRET"] = "Jwt:Secret",
         ["DATABASE_URL"] = "ConnectionStrings:Default",
+        ["STT_URL"] = "LocalStt:Url",
     };
 
     public static void AddDotEnv(this IConfigurationBuilder configuration, string startDirectory)

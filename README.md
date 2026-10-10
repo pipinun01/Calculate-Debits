@@ -43,6 +43,15 @@ cd miniapp && npm install && npm run dev      # http://localhost:5173, /api пр
 Экраны: клиенты, профиль клиента с листом новой операции, долги по срокам, отчёты, настройки, сотрудники, магазины. Переводы: `miniapp/public/locales/{uz-Latn,uz-Cyrl,ru}/translation.json` (ключи должны совпадать, есть тест).
 Проверки: `npm run build` (tsc + vite), `npm run lint`, `npm test`.
 
+## Деплой
+
+Один сервер и один `docker compose`: приложение с ботом и Mini App, PostgreSQL, Caddy для HTTPS, ежедневный бэкап и необязательная своя модель узбекской речи. Пошагово: [deploy/README.md](deploy/README.md).
+
+```bash
+cp .env.example .env && nano .env      # DOMAIN, BOT_TOKEN, секреты
+./deploy/run.sh up -d --build
+```
+
 ## REST API (Mini App)
 
 1. `POST /api/auth/telegram` `{ "initData": "<initDataRaw>" }` → `{ token, expiresAt, user }`. Подпись Telegram проверяется HMAC-ом с `BOT_TOKEN`, `auth_date` не старше 24 ч. JWT живёт 12 ч, подписан `JWT_SECRET` (в Development без него используется встроенный dev-секрет, в prod приложение не стартует).
@@ -70,6 +79,6 @@ Views `customer_balances` и `open_debts` создаются SQL-ом из `Pers
 ```
 backend/   Debits.slnx: Domain → Application → Infrastructure / Bot → Api; tests/
 miniapp/   Vite + React + TS Mini App
-deploy/    docker-compose, Dockerfile, Caddy, backup
+deploy/    Dockerfile, docker-compose (prod и dev), Caddy, backup, stt, README
 design/    6 экранов-референсов (png + html)
 ```

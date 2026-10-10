@@ -1,0 +1,6 @@
+# HTTPS for the Mini App, the REST API and the Telegram webhook. The certificate is issued and renewed automatically;
+# the domain's A record must already point to this server and ports 80 and 443 must be open.
+{$DOMAIN} {
+	encode zstd gzip
+	reverse_proxy app:8080
+}

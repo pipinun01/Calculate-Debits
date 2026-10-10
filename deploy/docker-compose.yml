@@ -1,0 +1,107 @@
+# Production stack. Run from the repository root, next to .env:
+#   docker compose -f deploy/docker-compose.yml --env-file .env up -d --build
+# Services: app (API + bot + Mini App), db, caddy (HTTPS), backup (daily pg_dump),
+# and the optional stt (self-hosted Uzbek speech model, enabled with COMPOSE_PROFILES=stt).
+name: debits
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: debits-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TZ: Asia/Tashkent
+      ConnectionStrings__Default: Host=db;Port=5432;Database=debits;Username=debits;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      Database__MigrateOnStartup: "true"
+      Bot__Token: ${BOT_TOKEN:?set BOT_TOKEN in .env}
+      Bot__Username: ${BOT_USERNAME:-}
+      Bot__Mode: webhook
+      Bot__WebhookSecret: ${BOT_WEBHOOK_SECRET:?set BOT_WEBHOOK_SECRET in .env}
+      Bot__PublicUrl: https://${DOMAIN:?set DOMAIN in .env}
+      MiniApp__Url: https://${DOMAIN}
+      Groq__ApiKey: ${GROQ_API_KEY:-}
+      Jwt__Secret: ${JWT_SECRET:?set JWT_SECRET in .env}
+      # Always points at the stt service: while that container is not running the app notices it and uses Groq.
+      LocalStt__Url: http://stt:8000
+    expose:
+      - "8080"
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: debits
+      POSTGRES_USER: debits
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: Asia/Tashkent
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U debits -d debits"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+  backup:
+    build: ./backup
+    image: debits-backup
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TZ: Asia/Tashkent
+      PGHOST: db
+      PGUSER: debits
+      PGDATABASE: debits
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      BACKUP_HOUR: ${BACKUP_HOUR:-3}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      # Optional off-server copy: the bot sends each dump to this Telegram chat.
+      BACKUP_CHAT_ID: ${BACKUP_CHAT_ID:-}
+      BOT_TOKEN: ${BOT_TOKEN}
+    volumes:
+      - backups:/backups
+
+  stt:
+    profiles: ["stt"]
+    build: ./stt
+    image: debits-stt
+    restart: unless-stopped
+    environment:
+      STT_MODEL: ${STT_MODEL:-yuldashev222/uzbek_stt_v1-ct2}
+      STT_COMPUTE_TYPE: ${STT_COMPUTE_TYPE:-int8}
+      STT_THREADS: ${STT_THREADS:-0}
+    volumes:
+      - stt-models:/models
+    expose:
+      - "8000"
+
+volumes:
+  pgdata:
+  backups:
+  caddy-data:
+  caddy-config:
+  stt-models:
