@@ -1,8 +1,11 @@
 using Debits.Bot.Conversation;
 using Debits.Bot.Dispatch;
+using Debits.Bot.Entries;
 using Debits.Bot.Handlers;
 using Debits.Bot.Hosting;
 using Debits.Bot.Localization;
+using Debits.Bot.Reminders;
+using Debits.Bot.Reports;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -30,6 +33,8 @@ public static class BotServiceCollectionExtensions
 
         services.AddHostedService<BotSetupHostedService>();
         services.AddHostedService<PollingHostedService>();
+        services.AddHostedService<PendingEntrySweepHostedService>();
+        services.AddHostedService<ReminderHostedService>();
         return services;
     }
 
@@ -47,6 +52,11 @@ public static class BotServiceCollectionExtensions
         services.AddScoped<ShopsHandler>();
         services.AddScoped<LanguageHandler>();
         services.AddScoped<InviteHandler>();
+        services.AddScoped<EntryHandler>();
+        services.AddScoped<VoiceHandler>();
+        services.AddScoped<PendingEntrySweeper>();
+        services.AddScoped<ReminderService>();
+        services.AddScoped<ReportSender>();
         return services;
     }
 }

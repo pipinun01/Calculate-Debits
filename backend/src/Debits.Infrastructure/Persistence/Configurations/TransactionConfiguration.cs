@@ -21,6 +21,8 @@ public sealed class TransactionConfiguration : IEntityTypeConfiguration<Transact
         b.Ignore(t => t.IsDebt);
 
         b.HasIndex(t => new { t.ShopId, t.CustomerId, t.CreatedAt }).IsDescending(false, false, true);
+        // Reports and the shop export read a period across all customers.
+        b.HasIndex(t => new { t.ShopId, t.CreatedAt });
         b.HasIndex(t => new { t.ShopId, t.DueDate })
             .HasDatabaseName("ix_transactions_open_debts_due")
             .HasFilter("type = 'debt' AND NOT is_deleted");

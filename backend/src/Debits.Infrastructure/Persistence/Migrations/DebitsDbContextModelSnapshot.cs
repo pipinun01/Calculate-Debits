@@ -641,6 +641,9 @@ namespace Debits.Infrastructure.Persistence.Migrations
                     b.HasIndex("UpdatedByMemberId")
                         .HasDatabaseName("ix_transactions_updated_by_member_id");
 
+                    b.HasIndex("ShopId", "CreatedAt")
+                        .HasDatabaseName("ix_transactions_shop_id_created_at");
+
                     b.HasIndex("ShopId", "DueDate")
                         .HasDatabaseName("ix_transactions_open_debts_due")
                         .HasFilter("type = 'debt' AND NOT is_deleted");

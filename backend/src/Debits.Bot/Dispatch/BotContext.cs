@@ -4,6 +4,7 @@ using Debits.Application.Tenancy;
 using Debits.Bot.Localization;
 using Debits.Domain.Entities;
 using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -34,7 +35,7 @@ public sealed class BotContext(
     public CallbackQuery? Callback => Update.CallbackQuery;
     public string? Text => Message?.Text;
 
-    public string T(string key, params object?[] args) => strings.Get(Language, key, args);
+    public string T(string key, params object?[] args) => Strings.Get(Language, key, args);
 
     public static string Esc(string? text) => WebUtility.HtmlEncode(text ?? string.Empty);
 
@@ -49,7 +50,15 @@ public sealed class BotContext(
     {
         if (Callback?.Message is { } m)
         {
-            await Bot.EditMessageText(m.Chat.Id, m.Id, html, parseMode: ParseMode.Html, replyMarkup: markup, linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true }, cancellationToken: ct);
+            try
+            {
+                await Bot.EditMessageText(m.Chat.Id, m.Id, html, parseMode: ParseMode.Html, replyMarkup: markup, linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true }, cancellationToken: ct);
+            }
+            catch (ApiRequestException ex) when (ex.Message.Contains("message is not modified", StringComparison.OrdinalIgnoreCase))
+            {
+                // A second tap on the same button: nothing to change.
+            }
+
             return;
         }
 

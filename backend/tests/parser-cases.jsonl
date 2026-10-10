@@ -1,0 +1,78 @@
+{"text": "Ahmad aka 550 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Ahmad akaga 550 ming qarz yozing", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Ahmad aka besh yuz ellik ming qarz oldi", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Zulfiya opa 250 ming nasiya, bir haftaga", "today": "2026-10-09", "intent": "debt", "customer": "Zulfiya opa", "amount": 250000, "due": "2026-10-16"}
+{"text": "Karim 1,5 mln qarz oy oxirigacha", "today": "2026-10-09", "intent": "debt", "customer": "Karim", "amount": 1500000, "due": "2026-10-31"}
+{"text": "Nodir uka 120 ming to'ladi", "today": "2026-10-09", "intent": "payment", "customer": "Nodir uka", "amount": 120000, "due": null}
+{"text": "Nodir uka qarzini berdi 120 ming", "today": "2026-10-09", "intent": "payment", "customer": "Nodir uka", "amount": 120000, "due": null}
+{"text": "Sardor 80 ming so'm 3 kunga", "today": "2026-10-09", "intent": null, "customer": "Sardor", "amount": 80000, "due": "2026-10-12"}
+{"text": "Bahodir aka ikki million uch yuz ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Bahodir aka", "amount": 2300000, "due": null}
+{"text": "Olim 45 ming", "today": "2026-10-09", "intent": null, "customer": "Olim", "amount": 45000, "due": null}
+{"text": "Gulnora xola 1 200 000 so'm nasiyaga oldi, ikki haftaga", "today": "2026-10-09", "intent": "debt", "customer": "Gulnora xola", "amount": 1200000, "due": "2026-10-23"}
+{"text": "Jasur 50 ming qaytardi", "today": "2026-10-09", "intent": "payment", "customer": "Jasur", "amount": 50000, "due": null}
+{"text": "Rustam aka bir yarim million to'lov", "today": "2026-10-09", "intent": "payment", "customer": "Rustam aka", "amount": 1500000, "due": null}
+{"text": "Shahlo opa 75 ming qarz ertaga", "today": "2026-10-09", "intent": "debt", "customer": "Shahlo opa", "amount": 75000, "due": "2026-10-10"}
+{"text": "Anvar 200 ming 10 kunga", "today": "2026-10-09", "intent": null, "customer": "Anvar", "amount": 200000, "due": "2026-10-19"}
+{"text": "Ahmad aka stomatolog 550 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka stomatolog", "amount": 550000, "due": null}
+{"text": "300 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": null, "amount": 300000, "due": null}
+{"text": "Ahmad aka qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": null, "due": null}
+{"text": "Sardor ellik", "today": "2026-10-09", "intent": null, "customer": "Sardor", "amount": 50, "due": null}
+{"text": "Malika opa 90 ming so'm berdi", "today": "2026-10-09", "intent": "payment", "customer": "Malika opa", "amount": 90000, "due": null}
+{"text": "Farhod 2 mln 500 ming qarz bir oyga", "today": "2026-10-09", "intent": "debt", "customer": "Farhod", "amount": 2500000, "due": "2026-11-09"}
+{"text": "Usta Karim 400 ming nasiya", "today": "2026-10-09", "intent": "debt", "customer": "Usta Karim", "amount": 400000, "due": null}
+{"text": "Hoji bobo 1 mln to'ladi", "today": "2026-10-09", "intent": "payment", "customer": "Hoji bobo", "amount": 1000000, "due": null}
+{"text": "Aziz 15 ming qarz indinga", "today": "2026-10-09", "intent": "debt", "customer": "Aziz", "amount": 15000, "due": "2026-10-11"}
+{"text": "Lola 60 ming qarz hafta oxirigacha", "today": "2026-10-09", "intent": "debt", "customer": "Lola", "amount": 60000, "due": "2026-10-11"}
+{"text": "Ahmad aka 550000 qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Ahmad aka 550.000 qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Oybek aka 100 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Oybek aka", "amount": 100000, "due": null}
+{"text": "Kunduz opa 30 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Kunduz opa", "amount": 30000, "due": null}
+{"text": "Olti yuz ming qarz Sherzod", "today": "2026-10-09", "intent": "debt", "customer": "Sherzod", "amount": 600000, "due": null}
+{"text": "qarz 200 ming Baxtiyor akaga", "today": "2026-10-09", "intent": "debt", "customer": "Baxtiyor aka", "amount": 200000, "due": null}
+{"text": "Ahmad aka 550 ming qarz, un va shakar", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Dilshod 20 ming uzdi", "today": "2026-10-09", "intent": "payment", "customer": "Dilshod", "amount": 20000, "due": null}
+{"text": "Sevara opa yetmish besh ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Sevara opa", "amount": 75000, "due": null}
+{"text": "Bobur to'qson ming to'ladi", "today": "2026-10-09", "intent": "payment", "customer": "Bobur", "amount": 90000, "due": null}
+{"text": "Zafar aka 1.5 million qarz", "today": "2026-10-09", "intent": "debt", "customer": "Zafar aka", "amount": 1500000, "due": null}
+{"text": "Nigora 35 ming so'm", "today": "2026-10-09", "intent": null, "customer": "Nigora", "amount": 35000, "due": null}
+{"text": "Komil aka yuz ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Komil aka", "amount": 100000, "due": null}
+{"text": "Ahmad aka 550 ming qarz 25 kunga", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": "2026-11-03"}
+{"text": "Ahmad aka 550 ming qarz yozib qo'y", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Ahmad aka 2 ta non 15 ming qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 15000, "due": null}
+{"text": "Salom", "today": "2026-10-09", "intent": null, "customer": "Salom", "amount": null, "due": null}
+{"text": "Аҳмад ака 550 минг қарз", "today": "2026-10-09", "intent": "debt", "customer": "Аҳмад ака", "amount": 550000, "due": null}
+{"text": "Зулфия опага икки юз эллик минг сўм насия, бир ҳафтага", "today": "2026-10-09", "intent": "debt", "customer": "Зулфия опа", "amount": 250000, "due": "2026-10-16"}
+{"text": "Карим бир ярим миллион тўлади", "today": "2026-10-09", "intent": "payment", "customer": "Карим", "amount": 1500000, "due": null}
+{"text": "Нодир ука қарзини берди 120 минг", "today": "2026-10-09", "intent": "payment", "customer": "Нодир ука", "amount": 120000, "due": null}
+{"text": "Дилноза опа 80 минг қарз олди, ой охиригача", "today": "2026-10-09", "intent": "debt", "customer": "Дилноза опа", "amount": 80000, "due": "2026-10-31"}
+{"text": "Сардор 3 кунга 40 минг қарз", "today": "2026-10-09", "intent": "debt", "customer": "Сардор", "amount": 40000, "due": "2026-10-12"}
+{"text": "Баҳодир ака икки миллион қарз", "today": "2026-10-09", "intent": "debt", "customer": "Баҳодир ака", "amount": 2000000, "due": null}
+{"text": "Гулнора хола тўқсон минг сўм тўлади", "today": "2026-10-09", "intent": "payment", "customer": "Гулнора хола", "amount": 90000, "due": null}
+{"text": "Шерзод 300 минг эртага", "today": "2026-10-09", "intent": null, "customer": "Шерзод", "amount": 300000, "due": "2026-10-10"}
+{"text": "Ахмад ака взял в долг пятьсот тысяч до конца месяца", "today": "2026-10-09", "intent": "debt", "customer": "Ахмад ака", "amount": 500000, "due": "2026-10-31"}
+{"text": "Олим оплатил 200 тысяч", "today": "2026-10-09", "intent": "payment", "customer": "Олим", "amount": 200000, "due": null}
+{"text": "Запиши Карима 1,5 млн в долг на неделю", "today": "2026-10-09", "intent": "debt", "customer": "Карима", "amount": 1500000, "due": "2026-10-16"}
+{"text": "Диляра вернула 300 тысяч", "today": "2026-10-09", "intent": "payment", "customer": "Диляра", "amount": 300000, "due": null}
+{"text": "Рустам 2 миллиона 300 тысяч долг на месяц", "today": "2026-10-09", "intent": "debt", "customer": "Рустам", "amount": 2300000, "due": "2026-11-09"}
+{"text": "Фарход ака полтора миллиона долг", "today": "2026-10-09", "intent": "debt", "customer": "Фарход ака", "amount": 1500000, "due": null}
+{"text": "Соседка Лена 50 тысяч долг на 3 дня", "today": "2026-10-09", "intent": "debt", "customer": "Соседка Лена", "amount": 50000, "due": "2026-10-12"}
+{"text": "Тимур отдал 75 тысяч сум", "today": "2026-10-09", "intent": "payment", "customer": "Тимур", "amount": 75000, "due": null}
+{"text": "Азиз взял 120 тысяч на две недели", "today": "2026-10-09", "intent": "debt", "customer": "Азиз", "amount": 120000, "due": "2026-10-23"}
+{"text": "Нигора опа 450 тысяч в долг завтра", "today": "2026-10-09", "intent": "debt", "customer": "Нигора опа", "amount": 450000, "due": "2026-10-10"}
+{"text": "Шухрат заплатил миллион", "today": "2026-10-09", "intent": "payment", "customer": "Шухрат", "amount": 1000000, "due": null}
+{"text": "Ахмад ака 550 тысяч", "today": "2026-10-09", "intent": null, "customer": "Ахмад ака", "amount": 550000, "due": null}
+{"text": "долг 80 тысяч Бобур", "today": "2026-10-09", "intent": "debt", "customer": "Бобур", "amount": 80000, "due": null}
+{"text": "Сардор двести пятьдесят тысяч долг", "today": "2026-10-09", "intent": "debt", "customer": "Сардор", "amount": 250000, "due": null}
+{"text": "Ahmad aka 550 тысяч qarz", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Камола опа 200 ming to'ladi", "today": "2026-10-09", "intent": "payment", "customer": "Камола опа", "amount": 200000, "due": null}
+{"text": "Jamshid 1 mln долг на неделю", "today": "2026-10-09", "intent": "debt", "customer": "Jamshid", "amount": 1000000, "due": "2026-10-16"}
+{"text": "Ahmad aka оплатил 300 ming", "today": "2026-10-09", "intent": "payment", "customer": "Ahmad aka", "amount": 300000, "due": null}
+{"text": "Зулфия opa 2 mln 300 ming qarz bir oyga", "today": "2026-10-09", "intent": "debt", "customer": "Зулфия opa", "amount": 2300000, "due": "2026-11-09"}
+{"text": "Ahmad aka, Besh yuz ellik ming so'm qarz.", "today": "2026-10-09", "intent": "debt", "customer": "Ahmad aka", "amount": 550000, "due": null}
+{"text": "Nodir, beş million so'm qarz.", "today": "2026-10-09", "intent": "debt", "customer": "Nodir", "amount": 5000000, "due": null}
+{"text": "Nodir, beş million so'm qaytardi.", "today": "2026-10-09", "intent": "payment", "customer": "Nodir", "amount": 5000000, "due": null}
+{"text": "Nodir besh milyon so'm qarz.", "today": "2026-10-09", "intent": "debt", "customer": "Nodir", "amount": 5000000, "due": null}
+{"text": "Ахмат ака, 500 елик мин, қарс.", "today": "2026-10-09", "intent": "debt", "customer": "Ахмат ака", "amount": 550000, "due": null}
+{"text": "Надыр. Пятьсот пятьдесят тысяч сум, долг.", "today": "2026-10-09", "intent": "debt", "customer": "Надыр", "amount": 550000, "due": null}
+{"text": "Надыр пятьсот сум, отдал.", "today": "2026-10-09", "intent": "payment", "customer": "Надыр", "amount": 500, "due": null}
+{"text": "Nodir, Besh, So'm qarz.", "today": "2026-10-09", "intent": "debt", "customer": "Nodir", "amount": 5, "due": null}

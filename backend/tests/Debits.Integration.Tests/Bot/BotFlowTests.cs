@@ -186,7 +186,7 @@ public class BotFlowTests(BotFixture fx) : IClassFixture<BotFixture>
     }
 
     [Fact]
-    public async Task FreeText_WithoutShop_StartsWizard_WithShop_ShowsHint()
+    public async Task FreeText_WithoutShop_StartsWizard_WithShop_OpensEntryCard()
     {
         var user = NewUser("Nodir");
         await fx.SendTextAsync(user, "salom");
@@ -195,7 +195,10 @@ public class BotFlowTests(BotFixture fx) : IClassFixture<BotFixture>
         var (owner, _) = await CreateShopViaWizardAsync("Hint Shop");
         fx.Reset();
         await fx.SendTextAsync(owner, "Ahmad aka 550 ming");
-        fx.LastTextTo(owner.Id).Should().Contain("tez orada");
+        fx.LastTextTo(owner.Id).Should().Contain("🏪 Hint Shop").And.Contain("550 000").And.Contain("Qaysi mijoz");
+
+        await fx.SendTextAsync(owner, "salom");
+        fx.LastTextTo(owner.Id).Should().Contain("Ovozli yoki matnli xabar yuboring");
     }
 
     [Fact]

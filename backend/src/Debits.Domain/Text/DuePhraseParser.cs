@@ -8,7 +8,8 @@ namespace Debits.Domain.Text;
 /// </summary>
 public static partial class DuePhraseParser
 {
-    public sealed record DueMatch(DateOnly DueDate, string MatchedText);
+    /// <param name="Index">Position of <paramref name="MatchedText"/> in <see cref="SearchKey.NormalizeText"/> of the input.</param>
+    public sealed record DueMatch(DateOnly DueDate, string MatchedText, int Index);
 
     private const string Num = @"(?<n>\d+|bir|ikki|uch|tort|besh|olti|yetti|sakkiz|toqqiz|on|on\s+(?:bir|ikki|uch|tort|besh)|yigirma|ottiz|qirq|ellik|odin|odnu|odna|dva|dve|tri|chetire|pyat|shest|sem|vosem|devyat|desyat|odinnadtsat|dvenadtsat|pyatnadtsat|dvadtsat|tridtsat|sorok|polmesyatsa)";
 
@@ -50,7 +51,7 @@ public static partial class DuePhraseParser
                 end = EndOfMonthDate(today.AddMonths(1));
             }
 
-            return new DueMatch(end, eom.Value);
+            return new DueMatch(end, eom.Value, eom.Index);
         }
 
         if (EndOfWeek().Match(norm) is { Success: true } eow)
@@ -61,32 +62,32 @@ public static partial class DuePhraseParser
                 daysUntilSunday = 7;
             }
 
-            return new DueMatch(today.AddDays(daysUntilSunday), eow.Value);
+            return new DueMatch(today.AddDays(daysUntilSunday), eow.Value, eow.Index);
         }
 
         if (DayAfterTomorrow().Match(norm) is { Success: true } dat)
         {
-            return new DueMatch(today.AddDays(2), dat.Value);
+            return new DueMatch(today.AddDays(2), dat.Value, dat.Index);
         }
 
         if (Tomorrow().Match(norm) is { Success: true } tmr)
         {
-            return new DueMatch(today.AddDays(1), tmr.Value);
+            return new DueMatch(today.AddDays(1), tmr.Value, tmr.Index);
         }
 
         if (Days().Match(norm) is { Success: true } days && TryNumber(days.Groups["n"].Value, 1, out var d) && d > 0)
         {
-            return new DueMatch(today.AddDays(d), days.Value);
+            return new DueMatch(today.AddDays(d), days.Value, days.Index);
         }
 
         if (Weeks().Match(norm) is { Success: true } weeks && TryNumber(weeks.Groups["n"].Value, 1, out var w) && w > 0)
         {
-            return new DueMatch(today.AddDays(7 * w), weeks.Value);
+            return new DueMatch(today.AddDays(7 * w), weeks.Value, weeks.Index);
         }
 
         if (Months().Match(norm) is { Success: true } months && TryNumber(months.Groups["n"].Value, 1, out var m) && m > 0)
         {
-            return new DueMatch(today.AddMonths(m), months.Value);
+            return new DueMatch(today.AddMonths(m), months.Value, months.Index);
         }
 
         return null;

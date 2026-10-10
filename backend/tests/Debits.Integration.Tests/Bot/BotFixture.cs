@@ -1,3 +1,4 @@
+using Debits.Application.Abstractions;
 using Debits.Application.DependencyInjection;
 using Debits.Bot;
 using Debits.Bot.DependencyInjection;
@@ -32,6 +33,10 @@ public sealed class BotFixture : IAsyncLifetime
     public ITelegramBotClient Client { get; } = Substitute.For<ITelegramBotClient>();
     public FakeTimeProvider Clock { get; } = new(new DateTimeOffset(2026, 10, 9, 9, 0, 0, TimeSpan.Zero));
     public UpdateDispatcher Dispatcher => Services.GetRequiredService<UpdateDispatcher>();
+    public FakeSpeechToText Speech { get; } = new();
+
+    /// <summary>Today in Asia/Tashkent by the fake clock (which only ever moves forward).</summary>
+    public DateOnly Today => DateOnly.FromDateTime(Clock.GetUtcNow().UtcDateTime.AddHours(5));
 
     public async Task InitializeAsync()
     {
@@ -39,6 +44,7 @@ public sealed class BotFixture : IAsyncLifetime
 
         Client.SendRequest(Arg.Any<IRequest<Message>>(), Arg.Any<CancellationToken>()).Returns(new Message());
         Client.SendRequest(Arg.Any<IRequest<bool>>(), Arg.Any<CancellationToken>()).Returns(true);
+        Client.SendRequest(Arg.Any<IRequest<TGFile>>(), Arg.Any<CancellationToken>()).Returns(new TGFile { FileId = "f", FilePath = "voice/file_1.oga", FileSize = 3 });
 
         var services = new ServiceCollection();
         services.AddLogging();
@@ -49,6 +55,7 @@ public sealed class BotFixture : IAsyncLifetime
         services.Configure<MiniAppOptions>(o => o.Url = "https://app.example.com");
         services.AddDebitsBotCore();
         services.AddSingleton(Client);
+        services.AddSingleton<ISpeechToText>(Speech);
         Services = services.BuildServiceProvider();
 
         using var scope = Services.CreateScope();
@@ -87,6 +94,39 @@ public sealed class BotFixture : IAsyncLifetime
         },
     }, CancellationToken.None);
 
+    public Task SendVoiceAsync(TelegramUser from, int durationSeconds = 4, string fileId = "voice-file-1") => Dispatcher.DispatchAsync(new Update
+    {
+        Id = Interlocked.Increment(ref _updateId),
+        Message = new Message
+        {
+            Id = _updateId,
+            Voice = new Voice { FileId = fileId, FileUniqueId = fileId, Duration = durationSeconds },
+            From = from.ToTelegram(),
+            Chat = new Chat { Id = from.Id, Type = ChatType.Private },
+        },
+    }, CancellationToken.None);
+
+    /// <summary>callback_data of the buttons under the last message sent to / edited in the chat.</summary>
+    public IReadOnlyList<string> LastButtons(long chatId)
+    {
+        var markup = Client.ReceivedCalls()
+            .Select(c => c.GetArguments().FirstOrDefault())
+            .Select(a => a switch
+            {
+                SendMessageRequest s when s.ChatId.Identifier == chatId => (Hit: true, Markup: s.ReplyMarkup as Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup),
+                EditMessageTextRequest e when e.ChatId.Identifier == chatId => (Hit: true, Markup: e.ReplyMarkup),
+                _ => (Hit: false, Markup: null),
+            })
+            .LastOrDefault(x => x.Hit).Markup;
+        return markup?.InlineKeyboard.SelectMany(r => r).Select(b => b.CallbackData ?? string.Empty).ToList() ?? [];
+    }
+
+    /// <summary>Text of the last toast shown for a button press.</summary>
+    public string? LastToast() => Client.ReceivedCalls()
+        .Select(c => c.GetArguments().FirstOrDefault())
+        .OfType<AnswerCallbackQueryRequest>()
+        .LastOrDefault()?.Text;
+
     /// <summary>Texts sent to a chat, in order, since the last <see cref="Reset"/>.</summary>
     public IReadOnlyList<SendMessageRequest> SentTo(long chatId) => Client.ReceivedCalls()
         .Select(c => c.GetArguments().FirstOrDefault())
@@ -116,6 +156,23 @@ public sealed class BotFixture : IAsyncLifetime
     }
 
     public void Reset() => Client.ClearReceivedCalls();
+}
+
+public sealed class FakeSpeechToText : ISpeechToText
+{
+    public bool IsConfigured { get; set; } = true;
+    public string NextText { get; set; } = string.Empty;
+    public Exception? NextError { get; set; }
+    public int Calls { get; private set; }
+
+    public IReadOnlyList<string> LastNames { get; private set; } = [];
+
+    public Task<Transcript> TranscribeAsync(Stream audio, string fileName, IReadOnlyList<string>? knownNames = null, CancellationToken cancellationToken = default)
+    {
+        Calls++;
+        LastNames = knownNames ?? [];
+        return NextError is not null ? Task.FromException<Transcript>(NextError) : Task.FromResult(new Transcript(NextText, "uz", TimeSpan.FromSeconds(3)));
+    }
 }
 
 public sealed record TelegramUser(long Id, string FirstName, string? LanguageCode = "uz", string? Username = null)

@@ -21,7 +21,7 @@ internal static class NumberWords
 
     public static readonly HashSet<string> CurrencyWords =
     [
-        "som", "sum", "sumov", "suma", "sumi", "uzs", "sm", "mingsom", "mingsum",
+        "som", "sum", "summ", "sumov", "suma", "sumi", "uzs", "sm", "mingsom", "mingsum",
     ];
 
     private static Dictionary<string, NumberWord> Build()
@@ -59,7 +59,7 @@ internal static class NumberWords
         Unit(20, "yigirma");
         Unit(30, "ottiz");
         Unit(40, "qirq");
-        Unit(50, "ellik");
+        Unit(50, "ellik", "elik", "yelik");
         Unit(60, "oltmish");
         Unit(70, "yetmish");
         Unit(80, "sakson");
@@ -67,7 +67,7 @@ internal static class NumberWords
         Unit(0.5m, "yarim");
         d["yuz"] = new NumberWord(NumberTokenKind.Hundred, 100);
         Scale(1_000, "ming", "min", "k");
-        Scale(1_000_000, "million", "mln", "milion", "mil");
+        Scale(1_000_000, "million", "mln", "milion", "milyon", "mil");
 
         // Russian (transliterated: пятьсот→pyatsot, тысяч→tisyach, полтора→poltora …)
         Unit(1, "odin", "odna", "odnu", "odno");

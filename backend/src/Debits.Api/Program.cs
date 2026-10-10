@@ -1,3 +1,5 @@
+using Debits.Api;
+using Debits.Api.Auth;
 using Debits.Api.Configuration;
 using Debits.Application.DependencyInjection;
 using Debits.Bot.DependencyInjection;
@@ -17,22 +19,32 @@ try
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext()
-        .WriteTo.Console());
+        .WriteTo.Console(),
+        // Several hosts share one process in integration tests; the static bootstrap logger stays for Log.Fatal below.
+        preserveStaticLogger: true);
 
-    builder.Services.AddControllers();
-    builder.Services.AddProblemDetails();
     builder.Services.AddHealthChecks();
 
     builder.Services
         .AddDebitsApplication()
         .AddDebitsInfrastructure(builder.Configuration)
-        .AddDebitsBot(builder.Configuration);
+        .AddDebitsBot(builder.Configuration)
+        .AddDebitsApi(builder.Configuration, builder.Environment);
 
     var app = builder.Build();
+
+    if (string.IsNullOrWhiteSpace(app.Configuration["Jwt:Secret"]))
+    {
+        app.Logger.LogWarning("JWT_SECRET is empty; using the built-in Development secret");
+    }
 
     app.UseSerilogRequestLogging();
     app.UseExceptionHandler();
     app.UseStatusCodePages();
+
+    app.UseAuthentication();
+    app.UseMiddleware<TenantMiddleware>();
+    app.UseAuthorization();
 
     app.MapHealthChecks("/health");
     app.MapControllers();

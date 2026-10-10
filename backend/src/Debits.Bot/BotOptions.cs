@@ -12,6 +12,12 @@ public sealed class BotOptions
     public string WebhookSecret { get; set; } = string.Empty;
     public string PublicUrl { get; set; } = string.Empty;
 
+    /// <summary>How long a confirmation card stays valid.</summary>
+    public int PendingTtlMinutes { get; set; } = 30;
+
+    /// <summary>Longer voice messages are rejected before download.</summary>
+    public int MaxVoiceSeconds { get; set; } = 120;
+
     public bool IsConfigured => !string.IsNullOrWhiteSpace(Token);
     public bool UseWebhook => string.Equals(Mode, "webhook", StringComparison.OrdinalIgnoreCase);
     public const string WebhookPath = "/tg/webhook";

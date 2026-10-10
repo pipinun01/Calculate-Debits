@@ -1,6 +1,9 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans';
 
-/* Design tokens from design/*.html (Stitch). Dark theme overrides come from Telegram themeParams at runtime. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Design tokens from design/*.html (Stitch), unified into one palette. */
 @theme {
   --color-primary: #7c3aed;
   --color-primary-light: #8b5cf6;
@@ -12,36 +15,110 @@
   --color-dark-card: #18191e;
   --color-text: #1e293b;
   --color-muted: #64748b;
+  --color-line: #e8ebf3;
+  --color-field: #f1f3f9;
 
   --color-success: #10b981;
+  --color-success-soft: #e7f8f1;
   --color-warning: #f59e0b;
+  --color-warning-soft: #fff5dc;
   --color-danger: #ef4444;
+  --color-danger-soft: #feecec;
 
   --radius-card: 20px;
   --radius-sheet: 24px;
 
-  --shadow-soft: 0 2px 8px rgba(30, 41, 59, 0.06);
-  --shadow-card: 0 4px 16px rgba(30, 41, 59, 0.08);
-  --shadow-elevated: 0 8px 32px rgba(124, 58, 237, 0.18);
+  --shadow-soft: 0 8px 24px -4px rgba(126, 105, 171, 0.12);
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-elevated: 0 16px 36px -8px rgba(124, 58, 237, 0.35);
 
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --animate-sheet-in: sheet-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-fade-in: fade-in 0.18s ease-out;
+
+  @keyframes sheet-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 :root {
   color-scheme: light;
+  --safe-bottom: max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-inset-bottom, 0px));
 }
 
-html,
-body,
-#root {
-  height: 100%;
+/* Dark theme: the same tokens, taken from Telegram's themeParams (the SDK exposes them as --tg-theme-*). */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: var(--tg-theme-secondary-bg-color, #0f1014);
+  --color-card: var(--tg-theme-section-bg-color, var(--tg-theme-bg-color, #1b1c22));
+  --color-text: var(--tg-theme-text-color, #f1f5f9);
+  --color-muted: var(--tg-theme-hint-color, #94a3b8);
+  --color-line: rgba(148, 163, 184, 0.18);
+  --color-field: rgba(148, 163, 184, 0.12);
+  --color-primary-soft: rgba(139, 92, 246, 0.22);
+  --color-primary-tint: rgba(139, 92, 246, 0.12);
+  --color-success-soft: rgba(16, 185, 129, 0.16);
+  --color-warning-soft: rgba(245, 158, 11, 0.16);
+  --color-danger-soft: rgba(239, 68, 68, 0.16);
+  --shadow-soft: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
 }
 
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  overscroll-behavior: none;
+/* Base rules live in the base layer: unlayered CSS would override Tailwind utilities (e.g. text-4xl on an input). */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 55%, #f472b6 130%);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
 }

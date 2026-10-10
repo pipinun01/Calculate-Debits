@@ -11,6 +11,7 @@ namespace Debits.Domain.Text;
 public static class SearchKey
 {
     private const string Apostrophes = "'’‘ʻʼ`´ʹˈ‛";
+    private const string TurkicLetters = "şçığöü";
 
     public static string Normalize(string name, string? tag = null)
     {
@@ -28,6 +29,11 @@ public static class SearchKey
         }
 
         var latin = UzTranslit.ToLatin(text.ToLowerInvariant());
+        if (latin.AsSpan().IndexOfAny(TurkicLetters) >= 0)
+        {
+            // Speech recognition sometimes spells Uzbek the Turkish way: "beş" = besh, "kırk" = qirq.
+            latin = latin.Replace("ş", "sh").Replace("ç", "ch").Replace('ı', 'i').Replace('ğ', 'g').Replace('ö', 'o').Replace('ü', 'u');
+        }
         var sb = new StringBuilder(latin.Length);
         var pendingSpace = false;
         foreach (var ch in latin)

@@ -10,7 +10,8 @@ export default defineConfig({
     host: true,
     allowedHosts: true,
     proxy: {
-      '/api': { target: 'http://localhost:5080', changeOrigin: true },
+      // API_URL lets a second dev server talk to another backend (e.g. a throwaway one for checks).
+      '/api': { target: process.env.API_URL ?? 'http://localhost:5080', changeOrigin: true },
     },
   },
   build: {

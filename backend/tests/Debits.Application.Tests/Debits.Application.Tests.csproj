@@ -17,6 +17,9 @@
     <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="../parser-cases.jsonl" Link="parser-cases.jsonl" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
     <Using Include="Xunit" />
     <Using Include="FluentAssertions" />
   </ItemGroup>

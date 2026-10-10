@@ -1,3 +1,4 @@
+using Debits.Application.Members;
 using Debits.Application.Shops;
 using Debits.Application.Tenancy;
 using Debits.Application.Users;
@@ -61,12 +62,15 @@ public sealed class UpdateRouter(
     TenantContext tenant,
     UserService users,
     ShopService shops,
+    MembershipService members,
     ConversationStore conversation,
     StartHandler start,
     MenuHandler menu,
     ShopsHandler shopsHandler,
     LanguageHandler language,
     InviteHandler invite,
+    EntryHandler entries,
+    VoiceHandler voice,
     ILogger<UpdateRouter> logger)
 {
     public async Task RouteAsync(Update update, CancellationToken ct)
@@ -84,6 +88,7 @@ public sealed class UpdateRouter(
         }
 
         var user = await users.UpsertAsync(new TelegramIdentity(from.Id, from.FirstName, from.Username, from.LanguageCode), ct);
+        await members.MarkReachableAsync(user.Id, ct);
         var ctx = new BotContext(bot, strings, update, user, chatId, tenant);
 
         if (update.CallbackQuery is { Data: { } data })
@@ -112,7 +117,24 @@ public sealed class UpdateRouter(
             return;
         }
 
-        // Phase 4: voice / free text → entry parsing
+        var message = update.Message;
+        if (message?.Voice is { } v)
+        {
+            await voice.HandleAsync(ctx, v.FileId, v.Duration, "voice.ogg", ct);
+            return;
+        }
+
+        if (message?.Audio is { } a)
+        {
+            await voice.HandleAsync(ctx, a.FileId, a.Duration, string.IsNullOrWhiteSpace(a.FileName) ? "audio.mp3" : a.FileName, ct);
+            return;
+        }
+
+        if (text is not null && (await entries.HandleStateTextAsync(ctx, text, ct) || await entries.StartAsync(ctx, text, Domain.Entities.EntrySource.Text, null, ct)))
+        {
+            return;
+        }
+
         await ctx.ReplyAsync(ctx.T("fallback.text"), ct: ct);
     }
 
@@ -192,6 +214,10 @@ public sealed class UpdateRouter(
         else if (data.StartsWith(Callbacks.SetLang, StringComparison.Ordinal))
         {
             await language.HandleCallbackAsync(ctx, data, ct);
+        }
+        else if (data.StartsWith(Entries.EntryCard.Prefix, StringComparison.Ordinal))
+        {
+            await entries.HandleCallbackAsync(ctx, data, ct);
         }
         else
         {
