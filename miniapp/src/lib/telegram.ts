@@ -27,6 +27,7 @@ interface TgWebApp {
   showConfirm?(message: string, cb: (ok: boolean) => void): void
   setHeaderColor?(color: string): void
   setBackgroundColor?(color: string): void
+  setBottomBarColor?(color: string): void
   disableVerticalSwipes?(): void
   isVersionAtLeast?(version: string): boolean
 }
@@ -60,6 +61,19 @@ export function initTelegram(onTheme: (scheme: 'light' | 'dark') => void): void 
   }
   onTheme(tg.colorScheme)
   tg.onEvent('themeChanged', () => onTheme(tg.colorScheme))
+}
+
+/** Paints Telegram's own chrome (header, overscroll area, bottom bar) in the app's colours so the frame does not clash with the page. */
+export function paintChrome(background: string, bar: string): void {
+  const tg = app()
+  if (!tg || !inTelegram()) return
+  try {
+    tg.setHeaderColor?.(background)
+    tg.setBackgroundColor?.(background)
+    tg.setBottomBarColor?.(bar)
+  } catch {
+    /* older clients */
+  }
 }
 
 export function haptic(kind: 'tap' | 'success' | 'error' | 'select' = 'tap'): void {

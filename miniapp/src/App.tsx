@@ -21,7 +21,7 @@ import StaffPage from './pages/StaffPage'
 function TabsLayout() {
   const summary = useDebtSummary()
   return (
-    <div className="mx-auto min-h-full max-w-lg" style={{ paddingBottom: 'calc(88px + var(--safe-bottom))' }}>
+    <div className="app-frame min-h-full" style={{ paddingBottom: 'calc(88px + var(--safe-bottom))' }}>
       <Outlet />
       <BottomTabs overdue={(summary.data?.overdueCount ?? 0) > 0} />
     </div>
@@ -30,7 +30,7 @@ function TabsLayout() {
 
 function InnerLayout() {
   return (
-    <div className="mx-auto min-h-full max-w-lg">
+    <div className="app-frame min-h-full">
       <Outlet />
     </div>
   )
@@ -41,7 +41,7 @@ function Shell() {
   // No shop yet: the only thing to do is create one (or join by an invite link in the bot).
   if (!shop) {
     return (
-      <div className="mx-auto min-h-full max-w-lg">
+      <div className="app-frame min-h-full">
         <ShopsPage />
       </div>
     )

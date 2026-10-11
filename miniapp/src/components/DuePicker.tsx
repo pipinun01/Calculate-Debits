@@ -20,11 +20,12 @@ export function DuePicker({ today, value, onChange }: Props) {
     { label: t('due.preset.eom'), date: endOfMonth(today) },
   ]
   const isPreset = presets.some((p) => p.date === value)
+  const on = 'border-primary bg-primary text-white shadow-elevated'
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between px-1">
-        <span className="text-muted text-[11px] font-extrabold tracking-wider uppercase">{t('entry.due')}</span>
-        <span className="text-primary tabular text-xs font-bold">{formatDate(value)}</span>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="text-muted text-[11px] font-bold tracking-wider uppercase">{t('entry.due')}</span>
+        <span className="text-accent bg-primary-tint border-primary-line tabular rounded-md border px-2 py-0.5 text-xs font-bold">{formatDate(value)}</span>
       </div>
       <div className="flex flex-wrap gap-2">
         {presets.map((p) => {
@@ -37,14 +38,14 @@ export function DuePicker({ today, value, onChange }: Props) {
                 haptic('select')
                 onChange(p.date)
               }}
-              className={`flex h-10 items-center gap-1 rounded-xl border px-3.5 text-xs font-bold ${active ? 'border-primary bg-primary-tint text-primary' : 'border-line bg-card'}`}
+              className={`flex h-9 items-center gap-1.5 rounded-xl border px-3.5 text-xs transition active:scale-95 ${active ? `font-bold ${on}` : 'border-line bg-field font-semibold'}`}
             >
               {p.label}
               {active && <Check className="h-3.5 w-3.5" />}
             </button>
           )
         })}
-        <label className={`relative flex h-10 items-center gap-1.5 rounded-xl border border-dashed px-3.5 text-xs font-bold ${!isPreset ? 'border-primary bg-primary-tint text-primary' : 'border-line text-muted'}`}>
+        <label className={`relative flex h-9 items-center gap-1.5 rounded-xl border px-3.5 text-xs transition ${!isPreset ? `font-bold ${on}` : 'border-line text-muted border-dashed font-semibold'}`}>
           <Calendar className="h-3.5 w-3.5" />
           {t('due.preset.other')}
           <input

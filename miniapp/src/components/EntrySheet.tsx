@@ -9,7 +9,6 @@ import { addDays, formatDate } from '../lib/dates'
 import { formatUzs } from '../lib/formatUzs'
 import { displayName } from '../lib/people'
 import { AmountInput } from './AmountInput'
-import { Avatar } from './Avatar'
 import { BottomSheet } from './BottomSheet'
 import { Button } from './Button'
 import { SegmentedTabs } from './Chips'
@@ -93,22 +92,23 @@ export function EntrySheet({ onClose, customer, initialType, initialTargetDebtId
       open
       onClose={onClose}
       title={
-        <span className="bg-primary-soft text-primary inline-flex max-w-full items-center gap-2 rounded-full py-1 pr-3 pl-1 text-sm">
-          <Avatar name={customer.name} seed={customer.id} size="sm" />
-          <span className="truncate">{displayName(customer.name, customer.tag)}</span>
+        <span className="bg-primary-tint border-primary-line inline-flex max-w-full items-center gap-2 rounded-full border py-1 pr-3 pl-1">
+          <span className="bg-primary flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white">{[...customer.name.trim()][0]?.toUpperCase() ?? '?'}</span>
+          <span className="truncate text-xs font-bold tracking-tight">{displayName(customer.name, customer.tag)}</span>
+          {customer.phone && <span className="text-muted tabular hidden shrink-0 text-[11px] font-medium sm:inline">• {customer.phone}</span>}
         </span>
       }
       footer={
         <>
-          <Button full size="lg" variant={type === 'debt' ? 'primary' : 'success'} loading={create.isPending} onClick={submit}>
-            {t('entry.submit')}
+          <Button full size="lg" variant={type === 'debt' ? 'primary' : 'success'} loading={create.isPending} onClick={submit} className="flex-wrap font-extrabold">
+            <span className="truncate">{t('entry.submit')}</span>
             {amount > 0 && (
-              <span className="tabular rounded-lg bg-white/20 px-2 py-0.5 text-xs">
+              <span className="tabular rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold whitespace-nowrap">
                 {formatUzs(amount)} UZS · {t(type === 'debt' ? 'entry.debtShort' : 'entry.paymentShort')}
               </span>
             )}
           </Button>
-          <button type="button" onClick={onClose} className="text-muted mt-2 h-9 w-full text-sm font-semibold">
+          <button type="button" onClick={onClose} className="text-muted mt-1.5 h-9 w-full text-sm font-semibold">
             {t('common.cancel')}
           </button>
         </>
@@ -120,8 +120,8 @@ export function EntrySheet({ onClose, customer, initialType, initialTargetDebtId
           value={type}
           onChange={setType}
           options={[
-            { value: 'debt', label: (<><Plus className="h-4 w-4" />{t('entry.typeDebt')}</>) },
-            { value: 'payment', label: (<><Check className="h-4 w-4" />{t('entry.typePayment')}</>) },
+            { value: 'debt', label: (<><Plus className="h-4 w-4 shrink-0" />{t('entry.typeDebt')}</>) },
+            { value: 'payment', activeClass: 'bg-success-fill text-white shadow-soft', label: (<><Check className={`h-4 w-4 shrink-0 ${type === 'payment' ? '' : 'text-success'}`} />{t('entry.typePayment')}</>) },
           ]}
         />
 
@@ -137,7 +137,7 @@ export function EntrySheet({ onClose, customer, initialType, initialTargetDebtId
         ) : (
           customer.openDebts.length > 1 && (
             <label className="block">
-              <span className="text-muted mb-1.5 block px-1 text-[11px] font-extrabold tracking-wider uppercase">{t('entry.targetDebt')}</span>
+              <span className="text-muted mb-1.5 block text-[11px] font-bold tracking-wider uppercase">{t('entry.targetDebt')}</span>
               <select value={targetDebtId} onChange={(e) => setTargetDebtId(e.target.value)} className={inputClass}>
                 <option value="">{t('entry.targetOldest')}</option>
                 {customer.openDebts.map((d) => (
@@ -151,14 +151,14 @@ export function EntrySheet({ onClose, customer, initialType, initialTargetDebtId
         )}
 
         <div>
-          <span className="text-muted mb-1.5 block px-1 text-[11px] font-extrabold tracking-wider uppercase">{t('entry.comment')}</span>
-          <div className="bg-card border-line flex items-center gap-2 rounded-2xl border py-1.5 pr-1.5 pl-3.5">
+          <span className="text-muted mb-1.5 block text-[11px] font-bold tracking-wider uppercase">{t('entry.comment')}</span>
+          <div className="bg-field border-line focus-within:border-accent focus-within:ring-accent/25 flex items-center gap-2 rounded-xl border py-1.5 pr-1.5 pl-3.5 transition focus-within:ring-2">
             <input
               value={comment}
               maxLength={500}
               onChange={(e) => setComment(e.target.value)}
               placeholder={t('entry.commentPlaceholder')}
-              className="placeholder:text-muted h-9 min-w-0 flex-1 bg-transparent text-sm outline-none"
+              className="placeholder:text-muted h-9 min-w-0 flex-1 bg-transparent text-base outline-none md:text-sm"
             />
             {recorderSupported() && (
               <Button
@@ -167,12 +167,13 @@ export function EntrySheet({ onClose, customer, initialType, initialTargetDebtId
                 loading={parsing}
                 icon={voice.recording ? <Square className="h-3.5 w-3.5" /> : <Mic className="h-3.5 w-3.5" />}
                 onClick={voice.recording ? voice.stop : voice.start}
+                className="shrink-0"
               >
                 {t(voice.recording ? 'voice.stop' : 'voice.record')}
               </Button>
             )}
           </div>
-          {!recorderSupported() && <p className="text-muted mt-1.5 px-1 text-[11px]">{t('voice.unsupported')}</p>}
+          {!recorderSupported() && <p className="text-muted mt-1.5 text-[11px]">{t('voice.unsupported')}</p>}
         </div>
       </div>
     </BottomSheet>

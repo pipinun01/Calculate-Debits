@@ -34,13 +34,11 @@ export default function CustomersPage() {
   return (
     <>
       <ShopHeader />
-      <div className="px-4">
+      <div className="app-x pt-3">
         <BalanceHero total={s?.total ?? 0} activeCustomers={s?.activeCustomers ?? 0} overdueCount={s?.overdueCount ?? 0} />
 
-        <div className="mt-4">
+        <div className="mt-4 space-y-2.5">
           <SearchBar value={search} onChange={setSearch} placeholder={t('customers.search')} />
-        </div>
-        <div className="mt-3">
           <FilterChips<CustomerFilter>
             value={filter}
             onChange={setFilter}
@@ -65,18 +63,20 @@ export default function CustomersPage() {
             hint={q || filter !== 'all' ? undefined : t('customers.emptyHint')}
           />
         ) : (
-          <div className="space-y-2.5">
-            {items.map((c) => (
-              <CustomerRow key={c.id} customer={c} today={today} />
-            ))}
+          <>
+            <div className="card-grid">
+              {items.map((c) => (
+                <CustomerRow key={c.id} customer={c} today={today} />
+              ))}
+            </div>
             <div ref={sentinel} />
             {customers.isFetchingNextPage && <Loading />}
-          </div>
+          </>
         )}
       </div>
 
       <FAB label={t('customer.new')} onClick={() => setAdding(true)}>
-        <Plus className="h-6 w-6" />
+        <Plus className="h-7 w-7" strokeWidth={2.4} />
       </FAB>
       {adding && <CustomerFormSheet onClose={() => setAdding(false)} initialName={items.length === 0 ? search.trim() : ''} onSaved={(c) => navigate(`/customers/${c.id}`)} />}
     </>

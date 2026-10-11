@@ -39,7 +39,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     [show, t]
   )
 
-  const colors = { info: 'bg-dark-card text-white', success: 'bg-success text-white', error: 'bg-danger text-white' }
+  const colors = { info: 'bg-dark-card text-white dark:border dark:border-line', success: 'bg-success-fill text-white', error: 'bg-danger-fill text-white' }
 
   return (
     <ToastContext.Provider value={{ show, error }}>

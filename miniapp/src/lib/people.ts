@@ -8,13 +8,13 @@ export function initials(name: string): string {
 }
 
 const PALETTE = [
-  ['#fee2e2', '#dc2626'],
+  ['#ffe4e6', '#e11d48'],
   ['#fef3c7', '#d97706'],
-  ['#ede9fe', '#7c3aed'],
   ['#dbeafe', '#2563eb'],
+  ['#cffafe', '#0891b2'],
   ['#d1fae5', '#059669'],
-  ['#fce7f3', '#db2777'],
   ['#e0f2fe', '#0284c7'],
+  ['#e0e7ff', '#4f46e5'],
 ] as const
 
 /** Stable pastel colour pair for an avatar, derived from the id / name. */

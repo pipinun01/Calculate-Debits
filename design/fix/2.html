@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="uz"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Yangi operatsiya qo'shish - Telegram Mini App</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scrollbars">
+    /* Hide scrollbar for horizontal chips */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style data-purpose="interactive-animations">
+    /* Touch active feedback */
+    .active-scale:active {
+      transform: scale(0.97);
+    }
+    .sheet-enter {
+      animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .cursor-blink {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans antialiased text-slate-800 flex justify-center items-end min-h-screen p-0 m-0 select-none overflow-hidden">
+<!-- BEGIN: BackgroundOverlayScreen -->
+<!-- Clean, light-themed Telegram Mini App background preview -->
+<aside aria-hidden="true" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-10 flex flex-col justify-start p-4">
+<!-- Clean Light Telegram Bar -->
+<div class="flex items-center justify-between text-slate-700 text-xs font-semibold py-2 px-2 bg-white/70 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/60">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-200 animate-pulse"></span>
+<span class="text-slate-900 font-bold">Nasiya Bot</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">Telegram App</span>
+</div>
+</div>
+<!-- Background Customer Profile Card (Clean Light Style) -->
+<div class="mt-4 p-4 rounded-2xl bg-white/80 border border-slate-200 shadow-sm text-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center font-extrabold text-base text-white shadow-md shadow-blue-500/20">
+        AA
+      </div>
+<div>
+<h2 class="font-bold text-base text-slate-900">Ahmad aka (stomatolog)</h2>
+<p class="text-xs text-slate-500 font-medium">+998 90 123 45 67</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: BackgroundOverlayScreen -->
+<!-- BEGIN: BottomSheetModal -->
+<main class="sheet-enter relative z-20 w-full max-w-md bg-white rounded-t-[32px] shadow-[0_-12px_40px_rgba(15,23,42,0.14)] border-t border-slate-100 flex flex-col max-h-[92vh] overflow-y-auto no-scrollbar">
+<!-- BEGIN: SheetHeaderArea -->
+<div class="pt-3.5 px-5 pb-2.5 sticky top-0 bg-white/95 backdrop-blur-md z-30 flex flex-col items-center border-b border-slate-100/80">
+<!-- Sheet grabber handle -->
+<div class="w-10 h-1.5 bg-slate-200 rounded-full mb-3" data-purpose="sheet-grabber"></div>
+<div class="w-full flex items-center justify-between">
+<!-- Customer Badge Confirmation Pill -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-blue-50/80 hover:bg-blue-50 rounded-full border border-blue-200/80 transition" data-purpose="customer-indicator">
+<span class="w-6 h-6 rounded-full bg-blue-600 text-white text-[11px] font-bold flex items-center justify-center shadow-sm">
+          A
+        </span>
+<div class="flex items-center gap-1.5">
+<span class="text-xs font-bold text-slate-900 tracking-tight">Ahmad aka (stomatolog)</span>
+<span class="text-[11px] font-medium text-slate-400">• +998 90 123 45 67</span>
+</div>
+</div>
+<!-- Close Button -->
+<button aria-label="Yopish" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition active-scale" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- END: SheetHeaderArea -->
+<!-- Modal Content Body -->
+<div class="px-5 pt-3 pb-6 space-y-4">
+<!-- BEGIN: SegmentedControl -->
+<nav aria-label="Operatsiya turi" class="p-1 bg-slate-100 rounded-2xl flex items-center gap-1 border border-slate-200/80" data-purpose="operation-type-toggle">
+<!-- Active Debt State: Bold Electric Blue -->
+<button class="flex-1 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/25 flex items-center justify-center gap-1.5 active-scale" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Qarz yozish (Nasiya)</span>
+</button>
+<!-- Inactive Repayment Button: Emerald accent on icon -->
+<button class="flex-1 py-2.5 rounded-xl font-semibold text-xs sm:text-sm text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all duration-200 flex items-center justify-center gap-1.5 active-scale" type="button">
+<svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>To'lov qabul qilish</span>
+</button>
+</nav>
+<!-- END: SegmentedControl -->
+<!-- BEGIN: AmountEntrySection -->
+<section aria-labelledby="amount-label" class="bg-gradient-to-b from-blue-50/70 via-sky-50/30 to-slate-50/60 p-4 rounded-2xl border border-blue-100/90 flex flex-col items-center">
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1" id="amount-label">Summani kiriting</span>
+<!-- Massive numeric display with cursor -->
+<div class="flex items-baseline justify-center gap-2 my-1">
+<span class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">550 000</span>
+<span class="w-0.5 h-8 bg-blue-600 rounded-full inline-block cursor-blink self-center -ml-1 mr-0.5"></span>
+<span class="text-xl font-bold text-blue-600">UZS</span>
+</div>
+<!-- Quick Increment Chips in bright cyan/blue tint -->
+<div class="w-full flex items-center gap-1.5 mt-3 overflow-x-auto no-scrollbar pt-1" data-purpose="quick-increments">
+<button class="px-3 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-700 rounded-xl whitespace-nowrap active-scale shadow-sm transition" type="button">
+          +50 000
+        </button>
+<button class="px-3 py-1.5 text-xs font-semibold bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-700 rounded-xl whitespace-nowrap active-scale shadow-sm transition" type="button">
+          +100 000
+        </button>
+<button class="px-3 py-1.5 text-xs font-bold bg-blue-100/80 hover:bg-blue-100 border border-blue-200 text-blue-700 rounded-xl whitespace-nowrap active-scale shadow-sm transition" type="button">
+          +500 000
+        </button>
+<button class="px-3 py-1.5 text-xs font-medium bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 rounded-xl whitespace-nowrap active-scale shadow-sm transition" type="button">
+          To'liq summa
+        </button>
+</div>
+</section>
+<!-- END: AmountEntrySection -->
+<!-- BEGIN: DueDateSection -->
+<section aria-labelledby="due-date-label" class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider" id="due-date-label">To'lov muddati</label>
+<span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">17-may, 2025</span>
+</div>
+<div class="flex flex-wrap gap-2" data-purpose="date-pill-selector">
+<button class="px-3.5 py-2 text-xs font-semibold rounded-xl border border-slate-200 text-slate-700 bg-slate-50 hover:bg-slate-100 active-scale transition" type="button">
+          3 kun
+        </button>
+<!-- Active Chip in Vibrant Electric Blue -->
+<button class="px-3.5 py-2 text-xs font-bold rounded-xl border border-blue-600 bg-blue-600 text-white shadow-sm shadow-blue-600/30 active-scale flex items-center gap-1.5 transition" type="button">
+<span>1 hafta</span>
+<svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+</button>
+<button class="px-3.5 py-2 text-xs font-semibold rounded-xl border border-slate-200 text-slate-700 bg-slate-50 hover:bg-slate-100 active-scale transition" type="button">
+          1 oy
+        </button>
+<button class="px-3.5 py-2 text-xs font-semibold rounded-xl border border-slate-200 text-slate-700 bg-slate-50 hover:bg-slate-100 active-scale transition" type="button">
+          Oy oxirigacha
+        </button>
+<button class="px-3.5 py-2 text-xs font-semibold rounded-xl border border-dashed border-slate-300 text-slate-600 bg-white hover:bg-slate-50 hover:border-slate-400 active-scale flex items-center gap-1 transition" type="button">
+<span>📅 Boshqa sana</span>
+</button>
+</div>
+</section>
+<!-- END: DueDateSection -->
+<!-- BEGIN: CommentAndVoiceSection -->
+<section aria-label="Izoh va audio qayd" class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider block" for="operation-note">
+        Izoh yoki mahsulot nomi
+      </label>
+<div class="relative flex items-center">
+<input class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl pl-3.5 pr-32 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition" id="operation-note" placeholder="Izoh (masalan: un, yog', go'sht...)" type="text" value="2 qop oliy un, 5l yog'"/>
+<!-- Cyan/Electric Blue Voice Recording Button -->
+<button aria-label="Ovozli yozish" class="absolute right-1.5 top-1.5 bottom-1.5 px-3 flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-lg active-scale transition shadow-sm" type="button">
+<span class="text-sm">🎙</span>
+<span class="text-[11px] leading-tight">Ovozli yozish</span>
+</button>
+</div>
+</section>
+<!-- END: CommentAndVoiceSection -->
+<!-- BEGIN: ActionButtons -->
+<footer class="pt-2 pb-1 space-y-2.5">
+<!-- Main Primary Action: High-contrast Vibrant Electric Blue -->
+<button class="w-full py-4 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-2xl font-extrabold text-base shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 active-scale transition duration-150" type="button">
+<span>Tasdiqlash va saqlash</span>
+<span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white">(550 000 UZS qarz)</span>
+</button>
+<!-- Cancel Text Button -->
+<button class="w-full py-2 text-sm font-semibold text-slate-400 hover:text-slate-600 text-center transition active-scale" type="button">
+        Bekor qilish
+      </button>
+</footer>
+<!-- END: ActionButtons -->
+</div>
+</main>
+<!-- END: BottomSheetModal -->
+</body></html>

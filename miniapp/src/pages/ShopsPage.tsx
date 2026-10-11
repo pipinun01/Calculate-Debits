@@ -66,7 +66,7 @@ export default function ShopsPage() {
   return (
     <div className="pb-8">
       <PageHeader title={t('shops.title')} subtitle={me.firstName} />
-      <div className="px-4">
+      <div className="app-x pt-1">
         {onboarding ? (
           <Empty icon={<Store className="h-6 w-6" />} title={t('shops.none')} hint={t('shops.noneHint')} />
         ) : (
@@ -76,8 +76,8 @@ export default function ShopsPage() {
               {me.shops.map((s) => {
                 const active = s.shopId === shop?.shopId
                 return (
-                  <button key={s.shopId} type="button" disabled={busy !== null} onClick={() => void choose(s.shopId)} className={`bg-card shadow-soft rounded-card flex w-full items-center gap-3 border-2 p-4 text-left ${active ? 'border-primary' : 'border-transparent'}`}>
-                    <div className="bg-primary-soft text-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl">
+                  <button key={s.shopId} type="button" disabled={busy !== null} onClick={() => void choose(s.shopId)} className={`bg-card border-line shadow-soft rounded-card border flex w-full items-center gap-3 border-2 p-4 text-left ${active ? 'border-primary' : 'border-transparent'}`}>
+                    <div className="bg-primary-soft text-accent flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl">
                       <Store className="h-5 w-5" />
                     </div>
                     <div className="min-w-0 flex-1">

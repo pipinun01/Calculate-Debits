@@ -13,20 +13,19 @@ const tabs = [
 export function BottomTabs({ overdue }: { overdue: boolean }) {
   const { t } = useTranslation()
   return (
-    <nav className="bg-card border-line fixed inset-x-0 bottom-0 z-40 border-t" style={{ paddingBottom: 'var(--safe-bottom)' }}>
-      <div className="mx-auto flex h-16 max-w-lg">
+    <nav className="bg-card/95 border-line fixed inset-x-0 bottom-0 z-40 border-t shadow-bar backdrop-blur-xl" style={{ paddingBottom: 'var(--safe-bottom)' }}>
+      <div className="app-frame app-x flex h-16">
         {tabs.map(({ to, key, Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            onClick={() => haptic('select')}
-            className={({ isActive }) => `relative flex flex-1 flex-col items-center justify-center gap-1 text-[10px] font-bold ${isActive ? 'text-primary' : 'text-muted'}`}
-          >
-            <span className="relative">
-              <Icon className="h-5 w-5" />
-              {to === '/debts' && overdue && <span className="bg-danger ring-card absolute -top-0.5 -right-1 h-2 w-2 rounded-full ring-2" />}
-            </span>
-            {t(key)}
+          <NavLink key={to} to={to} onClick={() => haptic('select')} className="group flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 transition active:scale-95">
+            {({ isActive }) => (
+              <>
+                <span className={`relative flex h-8 w-12 items-center justify-center rounded-xl transition ${isActive ? 'bg-primary-soft text-accent' : 'text-muted'}`}>
+                  <Icon className="h-5 w-5" strokeWidth={isActive ? 2.3 : 1.9} />
+                  {to === '/debts' && overdue && <span className="bg-danger-fill ring-card absolute top-1 right-2.5 h-2 w-2 rounded-full ring-2" />}
+                </span>
+                <span className={`max-w-full truncate px-1 text-[11px] tracking-tight ${isActive ? 'text-accent font-bold' : 'text-muted font-medium'}`}>{t(key)}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </div>

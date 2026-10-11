@@ -46,7 +46,7 @@ export default function AuditPage() {
   return (
     <div className="pb-8">
       <PageHeader title={t('audit.title')} subtitle={membership?.shopName} />
-      <div className="px-4">
+      <div className="app-x pt-1">
         {audit.isPending || shop.isPending ? (
           <Loading full />
         ) : audit.isError || shop.isError ? (
@@ -54,10 +54,10 @@ export default function AuditPage() {
         ) : events.length === 0 ? (
           <Empty icon={<History className="h-6 w-6" />} title={t('audit.empty')} hint={t('audit.emptyHint')} />
         ) : (
-          <div className="bg-card shadow-soft rounded-card mt-2 overflow-hidden">
+          <div className="bg-card border-line shadow-soft rounded-card border mt-2 overflow-hidden">
             {events.map((e) => (
               <div key={e.id} className="border-line flex items-start gap-3 border-b px-4 py-3 last:border-b-0">
-                <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${e.action.endsWith('.delete') || e.action === 'member.deactivate' ? 'bg-danger-soft text-danger' : 'bg-primary-soft text-primary'}`}>{icon(e)}</div>
+                <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${e.action.endsWith('.delete') || e.action === 'member.deactivate' ? 'bg-danger-soft text-danger' : 'bg-primary-soft text-accent'}`}>{icon(e)}</div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold">{t(`audit.action.${e.action}`, { defaultValue: e.action })}</p>
                   {details(e) && <p className="truncate text-xs">{details(e)}</p>}

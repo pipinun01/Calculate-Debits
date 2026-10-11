@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="uz"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Ahmad aka - Qarz daftari va to'lovlar</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            blue: '#1d4ed8',
+            sky: '#0284c7',
+            emerald: '#10b981'
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen text-slate-800 antialiased">
+<!-- Mobile Frame Container: Centered, responsive up to max-w-md, no clipping -->
+<div class="w-full max-w-md mx-auto min-h-screen bg-[#f8fafc] flex flex-col relative shadow-xl overflow-x-hidden pb-28">
+<!-- BEGIN: TelegramStatusBarAndNav -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all shadow-xs">
+<!-- iOS Status Bar -->
+<div class="h-10 px-5 flex justify-between items-center text-xs font-semibold text-slate-900 tracking-tight">
+<span>9:41</span>
+<div class="flex items-center space-x-1.5 text-slate-800">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.28 19.59 10.59 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"></path></svg>
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0012 4z"></path></svg>
+<div class="w-5 h-2.5 bg-slate-900 rounded-sm p-0.5 flex items-center justify-end">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</div>
+<!-- App Bar with Customer Context -->
+<div class="h-14 px-4 flex items-center justify-between">
+<!-- Back Button & Customer Summary -->
+<div class="flex items-center space-x-2">
+<button aria-label="Orqaga" class="w-9 h-9 rounded-xl flex items-center justify-center text-blue-600 hover:bg-blue-50 active:scale-95 transition" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div>
+<div class="flex items-center space-x-1.5">
+<h1 class="text-sm font-bold text-slate-900 leading-tight">Ahmad aka (stomatolog)</h1>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">VIP</span>
+</div>
+<p class="text-xs text-slate-500 font-medium">+998 90 123-45-67</p>
+</div>
+</div>
+<!-- Quick Action Buttons: Phone & Telegram -->
+<div class="flex items-center space-x-1.5">
+<a aria-label="Qo'ng'iroq qilish" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 active:scale-95 transition shadow-xs" href="tel:+998901234567">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+<path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+</svg>
+</a>
+<a aria-label="Telegram" class="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center hover:bg-sky-100 active:scale-95 transition shadow-xs" href="https://t.me/">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.19-.02.26z"></path>
+</svg>
+</a>
+</div>
+</div>
+</header>
+<!-- END: TelegramStatusBarAndNav -->
+<!-- Main Scrollable Content -->
+<main class="flex-1 px-4 pt-4 space-y-4">
+<!-- BEGIN: HeroBalanceCard -->
+<!-- Bright clean azure/sky-blue gradient hero card -->
+<section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-sky-500 text-white p-5 shadow-lg shadow-blue-500/20" data-purpose="hero-balance-card">
+<!-- Decorative Glow Orbs -->
+<div class="absolute -right-8 -bottom-8 w-36 h-36 bg-sky-300/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -left-10 -top-10 w-32 h-32 bg-blue-700/40 rounded-full blur-xl pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-semibold uppercase tracking-wider text-blue-100">Hozirgi qarz balansi</span>
+<!-- Overdue Alert Badge: Comfortable single-line centered pill -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/25 border border-white/20 text-white text-xs font-semibold shadow-xs whitespace-nowrap backdrop-blur-sm">
+<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>3 kun kechikkan</span>
+</span>
+</div>
+<div class="text-3xl font-extrabold tracking-tight text-white mb-4 flex items-baseline gap-2">
+<span>1 250 000</span> <span class="text-lg font-semibold text-blue-100">UZS</span>
+</div>
+<!-- Meta Subcards -->
+<div class="grid grid-cols-2 gap-2 text-xs">
+<div class="bg-white/15 backdrop-blur-md rounded-xl p-3 border border-white/20">
+<div class="text-blue-100 text-[10px] uppercase font-bold tracking-wider">Oxirgi qarz</div>
+<div class="text-white font-semibold text-xs mt-1">12-mart, 2025</div>
+</div>
+<div class="bg-white/15 backdrop-blur-md rounded-xl p-3 border border-white/20">
+<div class="text-blue-100 text-[10px] uppercase font-bold tracking-wider">Oxirgi to'lov</div>
+<div class="text-emerald-200 font-semibold text-xs mt-1">28-fevral, 2025</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroBalanceCard -->
+<!-- BEGIN: SegmentedTabs -->
+<section data-purpose="tab-navigation">
+<div class="bg-slate-200/80 p-1 rounded-xl flex items-center text-xs font-semibold">
+<!-- Active Tab: Tarix -->
+<button class="flex-1 py-2 rounded-lg bg-white text-blue-600 shadow-sm text-center font-bold transition flex items-center justify-center space-x-1" type="button">
+<span>Tarix (Barchasi)</span>
+</button>
+<!-- Inactive Tab: Ochiq qarzlar -->
+<button class="flex-1 py-2 rounded-lg text-slate-600 hover:text-slate-900 text-center transition flex items-center justify-center space-x-1.5" type="button">
+<span>Ochiq qarzlar</span>
+<span class="bg-rose-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">1 ta</span>
+</button>
+</div>
+</section>
+<!-- END: SegmentedTabs -->
+<!-- Filter chips row -->
+<div class="flex items-center justify-between text-xs px-0.5">
+<div class="flex items-center space-x-2 overflow-x-auto hide-scrollbar py-0.5">
+<span class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 font-semibold text-xs border border-blue-200 whitespace-nowrap">Hammasi (3)</span>
+<span class="px-3 py-1.5 rounded-lg bg-white text-slate-600 font-medium text-xs border border-slate-200 whitespace-nowrap">Faqat qarzlar</span>
+<span class="px-3 py-1.5 rounded-lg bg-white text-slate-600 font-medium text-xs border border-slate-200 whitespace-nowrap">Faqat to'lovlar</span>
+</div>
+<button class="text-blue-600 font-semibold text-xs flex items-center shrink-0 ml-2 hover:underline whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px] mr-1">tune</span>
+        Sana
+      </button>
+</div>
+<!-- BEGIN: TransactionLedgerStream -->
+<section class="space-y-3" data-purpose="ledger-transaction-stream">
+<div class="flex items-center justify-between px-1">
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Operatsiyalar tarixi</span>
+<span class="text-[11px] text-slate-400 font-medium">Jami 3 ta yozuv</span>
+</div>
+<!-- Transaction List -->
+<div class="space-y-3">
+<!-- Entry 1: Qarz qo'shildi -->
+<article class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col gap-3 mb-3 active:bg-slate-50 transition">
+<div class="flex items-start justify-between gap-3">
+<!-- Left side: Icon + Title & Date + Badge -->
+<div class="flex items-start gap-3 min-w-0 flex-1">
+<div class="w-10 h-10 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 border border-rose-100">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-bold text-slate-900 text-sm">Nasiya savdo</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-600 border border-rose-100/80">Ochiq qarz</span>
+</div>
+<span class="text-xs text-slate-400 mt-0.5">12-mart, 2025 · 14:30</span>
+</div>
+</div>
+<!-- Right side: Amount pill -->
+<div class="text-right shrink-0">
+<div class="text-base font-extrabold text-rose-600 tracking-tight leading-none">+550 000</div>
+<div class="text-[11px] font-bold text-rose-400/90 mt-1">UZS</div>
+</div>
+</div>
+<!-- Items detail description -->
+<div class="bg-slate-50 rounded-xl p-3 text-xs flex flex-col gap-2">
+<p class="text-slate-700 font-medium leading-relaxed flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-slate-400 shrink-0">shopping_bag</span>
+<span>2 qop un, 5l yog', go'sht mahsulotlari</span>
+</p>
+<div class="flex items-center justify-between text-slate-400 pt-1 border-t border-slate-100">
+<span>Xodim: Sarvar yozdi</span>
+<span class="font-mono text-slate-400">Chek #4829</span>
+</div>
+</div>
+</article>
+<!-- Entry 2: To'lov qabul qilindi -->
+<article class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col gap-3 mb-3 active:bg-slate-50 transition">
+<div class="flex items-start justify-between gap-3">
+<!-- Left side: Icon + Title & Date + Badge -->
+<div class="flex items-start gap-3 min-w-0 flex-1">
+<div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-bold text-slate-900 text-sm">Qarz to'lovi</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100/80">Qabul qilindi</span>
+</div>
+<span class="text-xs text-slate-400 mt-0.5">28-fevral, 2025 · 18:15</span>
+</div>
+</div>
+<!-- Right side: Amount -->
+<div class="text-right shrink-0">
+<div class="text-base font-extrabold text-emerald-600 tracking-tight leading-none">-200 000</div>
+<div class="text-[11px] font-bold text-emerald-500 mt-1">UZS</div>
+</div>
+</div>
+<!-- Payment details -->
+<div class="bg-emerald-50/70 border border-emerald-100/80 rounded-xl p-3 text-xs flex flex-col gap-2">
+<p class="text-emerald-800 font-semibold leading-relaxed flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+<span>Naqd pulda to'landi</span>
+</p>
+<div class="flex items-center justify-between text-emerald-700/80 pt-1 border-t border-emerald-200/50">
+<span>Qabul qildi: Bobur</span>
+<span class="font-mono text-emerald-700/80">Kvitansiya #1042</span>
+</div>
+</div>
+</article>
+<!-- Entry 3: Qarz qo'shildi (Eski) -->
+<article class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col gap-3 mb-3 active:bg-slate-50 transition">
+<div class="flex items-start justify-between gap-3">
+<!-- Left side: Icon + Title & Date + Badge -->
+<div class="flex items-start gap-3 min-w-0 flex-1">
+<div class="w-10 h-10 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 border border-rose-100">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-bold text-slate-900 text-sm">Nasiya savdo</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-100/80">Qisman yopilgan</span>
+</div>
+<span class="text-xs text-slate-400 mt-0.5">15-fevral, 2025 · 11:20</span>
+</div>
+</div>
+<!-- Right side: Amount -->
+<div class="text-right shrink-0">
+<div class="text-base font-extrabold text-rose-600 tracking-tight leading-none">+900 000</div>
+<div class="text-[11px] font-bold text-rose-400/90 mt-1">UZS</div>
+</div>
+</div>
+<!-- Items detail -->
+<div class="bg-slate-50 rounded-xl p-3 text-xs flex flex-col gap-2">
+<p class="text-slate-700 font-medium leading-relaxed flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-slate-400 shrink-0">shopping_bag</span>
+<span class="line-clamp-1">Klinika ta'miri uchun qurilish mahsulotlari</span>
+</p>
+<div class="flex items-center justify-between text-slate-400 pt-1 border-t border-slate-100">
+<span>Xodim: Sarvar yozdi</span>
+<span class="font-mono text-slate-400">Chek #3911</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- END: TransactionLedgerStream -->
+</main>
+<!-- BEGIN: FixedBottomActionBar (FIXED, RESPONSIVE, CENTERED WITH NO CLIPPING) -->
+<footer class="fixed bottom-0 inset-x-0 z-50 flex justify-center pointer-events-none" data-purpose="bottom-action-controls">
+<div class="w-full max-w-md bg-white/95 backdrop-blur-xl border-t border-slate-200 px-4 pt-3 pb-6 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] pointer-events-auto">
+<!-- Action Buttons Row -->
+<div class="flex items-center gap-3">
+<!-- Left: Qarz yozish (Vibrant Blue Button) -->
+<button class="flex-1 h-12 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-sm flex items-center justify-center space-x-2 shadow-md shadow-blue-500/25 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="truncate">Qarz yozish</span>
+</button>
+<!-- Right: To'lov olish (Vibrant Emerald Green Button) -->
+<button class="flex-1 h-12 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-sm flex items-center justify-center space-x-2 shadow-md shadow-emerald-500/25 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+<span class="truncate">To'lov olish</span>
+</button>
+</div>
+<!-- Telegram / iOS Home Bar -->
+<div class="flex justify-center pt-3">
+<div class="w-32 h-1 bg-slate-300 rounded-full"></div>
+</div>
+</div>
+</footer>
+<!-- END: FixedBottomActionBar -->
+</div>
+</body></html>

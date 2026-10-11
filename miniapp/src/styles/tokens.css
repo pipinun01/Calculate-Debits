@@ -3,39 +3,59 @@
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
-/* Design tokens from design/*.html (Stitch), unified into one palette. */
+/* Design tokens from design/fix/*.html: blue on porcelain in the light theme, sky on deep navy in the dark one. */
 @theme {
-  --color-primary: #7c3aed;
-  --color-primary-light: #8b5cf6;
-  --color-primary-soft: #ede9fe;
-  --color-primary-tint: #f5f3ff;
+  /* Fills that carry white text: the same in both themes. */
+  --color-primary: #2563eb;
+  --color-primary-light: #1d4ed8;
+  --color-success-fill: #059669;
+  --color-danger-fill: #e11d48;
+  --color-telegram: #24a1de;
 
-  --color-bg: #f7f8fc;
+  /* Accent for text and icons on a surface; chip = the active filter pill. */
+  --color-accent: #2563eb;
+  --color-chip: #2563eb;
+  --color-on-chip: #ffffff;
+  --color-primary-soft: #dbeafe;
+  --color-primary-tint: #eff6ff;
+  --color-primary-line: #bfdbfe;
+
+  --color-bg: #f8fafc;
   --color-card: #ffffff;
-  --color-dark-card: #18191e;
-  --color-text: #1e293b;
+  --color-elevated: #ffffff;
+  --color-dark-card: #0f172a;
+  --color-text: #0f172a;
   --color-muted: #64748b;
-  --color-line: #e8ebf3;
-  --color-field: #f1f3f9;
+  --color-line: #e2e8f0;
+  --color-field: #f1f5f9;
+  --color-track: #e2e8f0;
 
-  --color-success: #10b981;
-  --color-success-soft: #e7f8f1;
-  --color-warning: #f59e0b;
-  --color-warning-soft: #fff5dc;
-  --color-danger: #ef4444;
-  --color-danger-soft: #feecec;
+  --color-success: #059669;
+  --color-success-soft: #ecfdf5;
+  --color-success-line: #a7f3d0;
+  --color-warning: #b45309;
+  --color-warning-soft: #fffbeb;
+  --color-warning-line: #fde68a;
+  --color-warning-dot: #f59e0b;
+  --color-danger: #e11d48;
+  --color-danger-soft: #fff1f2;
+  --color-danger-line: #fecdd3;
+  --color-chart: #38bdf8;
 
-  --radius-card: 20px;
-  --radius-sheet: 24px;
+  --radius-card: 16px;
+  --radius-sheet: 28px;
 
-  --shadow-soft: 0 8px 24px -4px rgba(126, 105, 171, 0.12);
-  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-  --shadow-elevated: 0 16px 36px -8px rgba(124, 58, 237, 0.35);
+  --shadow-soft: 0 2px 14px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  --shadow-elevated: 0 10px 25px -5px rgba(37, 99, 235, 0.35);
+  --shadow-hero: 0 8px 30px rgba(37, 99, 235, 0.18);
+  --shadow-bar: 0 -8px 30px rgba(15, 23, 42, 0.07);
 
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  --animate-sheet-in: sheet-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-sheet-in: sheet-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-fade-in: fade-in 0.18s ease-out;
+  --animate-pop-in: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   @keyframes sheet-in {
     from {
@@ -53,29 +73,69 @@
       opacity: 1;
     }
   }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 :root {
   color-scheme: light;
   --safe-bottom: max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-inset-bottom, 0px));
+  --safe-top: max(env(safe-area-inset-top, 0px), var(--tg-safe-area-inset-top, 0px));
+  --hero-gradient: linear-gradient(135deg, #1d4ed8 0%, #2563eb 45%, #0284c7 80%, #06b6d4 100%);
+  --hero-border: transparent;
+  --hero-chip: rgba(255, 255, 255, 0.18);
+  --hero-chip-line: rgba(255, 255, 255, 0.22);
 }
 
-/* Dark theme: the same tokens, taken from Telegram's themeParams (the SDK exposes them as --tg-theme-*). */
+/* The dark palette is ours, not Telegram's: the client only tells us which scheme is on. */
 [data-theme='dark'] {
   color-scheme: dark;
-  --color-bg: var(--tg-theme-secondary-bg-color, #0f1014);
-  --color-card: var(--tg-theme-section-bg-color, var(--tg-theme-bg-color, #1b1c22));
-  --color-text: var(--tg-theme-text-color, #f1f5f9);
-  --color-muted: var(--tg-theme-hint-color, #94a3b8);
-  --color-line: rgba(148, 163, 184, 0.18);
-  --color-field: rgba(148, 163, 184, 0.12);
-  --color-primary-soft: rgba(139, 92, 246, 0.22);
-  --color-primary-tint: rgba(139, 92, 246, 0.12);
-  --color-success-soft: rgba(16, 185, 129, 0.16);
-  --color-warning-soft: rgba(245, 158, 11, 0.16);
-  --color-danger-soft: rgba(239, 68, 68, 0.16);
-  --shadow-soft: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
-  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+  --color-accent: #38bdf8;
+  --color-chip: #0ea5e9;
+  --color-on-chip: #020617;
+  --color-primary-soft: rgba(14, 165, 233, 0.16);
+  --color-primary-tint: rgba(14, 165, 233, 0.09);
+  --color-primary-line: rgba(56, 189, 248, 0.32);
+
+  --color-bg: #090d16;
+  --color-card: #131c2e;
+  --color-elevated: #1a253c;
+  --color-dark-card: #1a253c;
+  --color-text: #f1f5f9;
+  --color-muted: #8da0b8;
+  --color-line: #26354f;
+  --color-field: #0d1424;
+  --color-track: #26354f;
+
+  --color-success: #34d399;
+  --color-success-soft: rgba(16, 185, 129, 0.14);
+  --color-success-line: rgba(16, 185, 129, 0.32);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(245, 158, 11, 0.14);
+  --color-warning-line: rgba(245, 158, 11, 0.32);
+  --color-warning-dot: #f59e0b;
+  --color-danger: #fb7185;
+  --color-danger-soft: rgba(244, 63, 94, 0.14);
+  --color-danger-line: rgba(244, 63, 94, 0.32);
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 8px 24px -2px rgba(37, 99, 235, 0.45);
+  --shadow-hero: 0 4px 20px -2px rgba(2, 132, 199, 0.22);
+  --shadow-bar: 0 -8px 30px rgba(0, 0, 0, 0.55);
+
+  --hero-gradient: linear-gradient(135deg, #0f2b48 0%, #0d3862 50%, #0369a1 100%);
+  --hero-border: rgba(56, 189, 248, 0.22);
+  --hero-chip: rgba(11, 22, 43, 0.55);
+  --hero-chip-line: rgba(56, 189, 248, 0.2);
 }
 
 /* Base rules live in the base layer: unlayered CSS would override Tailwind utilities (e.g. text-4xl on an input). */
@@ -84,6 +144,12 @@
   body,
   #root {
     height: 100%;
+  }
+
+  html {
+    /* Phones keep 16px; tablets get slightly larger type instead of stretched cards. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -106,10 +172,68 @@
     font: inherit;
     color: inherit;
   }
+
+  /* iOS zooms the page when a focused field is under 16px. */
+  @media (pointer: coarse) {
+    input,
+    textarea,
+    select {
+      font-size: max(16px, 1em);
+    }
+  }
+}
+
+/* One column on phones; tablets and desktop Telegram get a wider, still readable column. */
+.app-frame {
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .app-frame {
+    max-width: 46rem;
+  }
+}
+@media (min-width: 1100px) {
+  .app-frame {
+    max-width: 60rem;
+  }
+}
+
+/* Side padding that also respects notches in landscape. */
+.app-x {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 768px) {
+  .app-x {
+    padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Card lists: one column on phones, two on tablets. */
+.card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem;
+}
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 55%, #f472b6 130%);
+  background: var(--hero-gradient);
+  border: 1px solid var(--hero-border);
+  box-shadow: var(--shadow-hero);
+}
+.hero-chip {
+  background: var(--hero-chip);
+  border: 1px solid var(--hero-chip-line);
+  backdrop-filter: blur(8px);
 }
 
 .no-scrollbar {

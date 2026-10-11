@@ -8,10 +8,13 @@ import App from './App'
 import { ApiError } from './api/client'
 import { Loading } from './components/States'
 import { ToastProvider } from './hooks/useToast'
-import { initTelegram } from './lib/telegram'
+import { initTelegram, paintChrome } from './lib/telegram'
 
 initTelegram((scheme) => {
   document.documentElement.dataset.theme = scheme
+  const dark = scheme === 'dark'
+  paintChrome(dark ? '#090d16' : '#f8fafc', dark ? '#131c2e' : '#ffffff')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#090d16' : '#f8fafc')
 })
 
 const queryClient = new QueryClient({

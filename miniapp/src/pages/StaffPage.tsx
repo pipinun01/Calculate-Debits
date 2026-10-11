@@ -41,7 +41,7 @@ export default function StaffPage() {
   return (
     <div className="pb-8">
       <PageHeader title={t('settings.staffList')} subtitle={shop?.shopName} />
-      <div className="px-4">
+      <div className="app-x pt-1">
         {members.isPending ? (
           <Loading full />
         ) : members.isError ? (
@@ -72,7 +72,7 @@ export default function StaffPage() {
                             <p className="text-sm font-bold">{t(`role.${i.role}`)}</p>
                             <p className="text-muted text-xs">{t('staff.validUntil', { date: formatDate(i.expiresAt.slice(0, 10)) })}</p>
                           </div>
-                          <button type="button" onClick={() => share(i)} aria-label={t('staff.share')} className="bg-primary-soft text-primary flex h-9 w-9 items-center justify-center rounded-xl">
+                          <button type="button" onClick={() => share(i)} aria-label={t('staff.share')} className="bg-primary-soft text-accent flex h-9 w-9 items-center justify-center rounded-xl">
                             <Share2 className="h-4 w-4" />
                           </button>
                           <button type="button" onClick={() => revokeInvite.mutate(i.id, { onError })} aria-label={t('staff.revoke')} className="bg-danger-soft text-danger flex h-9 w-9 items-center justify-center rounded-xl">

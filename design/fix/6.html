@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Qarzlar va muddatlar monitoringi</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tma: {
+              bg: '#F8F9FD',
+              card: '#FFFFFF',
+              primary: '#6C5CE7',
+              accent: '#8E44AD',
+              danger: '#EF4444',
+              warning: '#F59E0B',
+              textDark: '#1E293B',
+              textMuted: '#64748B'
+            }
+          },
+          boxShadow: {
+            soft: '0 8px 30px rgba(108, 92, 231, 0.08)',
+            card: '0 2px 14px rgba(0, 0, 0, 0.04)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Style - Layout and Typography -->
+<style data-purpose="layout">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      background-color: #0f172a; /* Desktop framing backdrop */
+    }
+    .safe-top {
+      padding-top: env(safe-area-inset-top, 12px);
+    }
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<!-- END: Style - Layout and Typography -->
+<!-- BEGIN: Style - Chart Styling -->
+<style data-purpose="chart-styling">
+    .donut-circle-bg {
+      stroke: #EDE9FE;
+    }
+    .donut-circle-purple {
+      stroke: #6C5CE7;
+      stroke-linecap: round;
+    }
+    .donut-circle-amber {
+      stroke: #F59E0B;
+      stroke-linecap: round;
+    }
+    .donut-circle-red {
+      stroke: #EF4444;
+      stroke-linecap: round;
+    }
+  </style>
+<!-- END: Style - Chart Styling -->
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 sm:p-4">
+<!-- BEGIN: MainContainer -->
+<!-- Constrained mobile iOS container mimicking Telegram Mini App viewport -->
+<main class="w-full max-w-[420px] h-[100dvh] sm:h-[844px] sm:rounded-[44px] bg-[#F7F8FC] flex flex-col relative overflow-hidden shadow-2xl border border-slate-800/20">
+<!-- BEGIN: TopBar -->
+<header class="safe-top px-5 pt-3 pb-3 bg-white/90 backdrop-blur-md sticky top-0 z-30 border-b border-slate-100 flex items-center justify-between">
+<!-- Title & Back Group -->
+<div class="flex items-center space-x-3">
+<button aria-label="Orqaga" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition-transform">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div>
+<h1 class="text-base font-bold text-slate-900 leading-tight">Qarzlar monitoringi</h1>
+<p class="text-[11px] font-medium text-slate-500">Debts &amp; Due Dates</p>
+</div>
+</div>
+<!-- Shop Badge -->
+<div class="flex items-center space-x-1.5 px-2.5 py-1 bg-blue-50 border border-blue-100 rounded-full"><span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span><span class="text-xs font-semibold text-blue-700 tracking-wide">Aloqa bozori</span></div>
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: ScrollableContent -->
+<div class="flex-1 overflow-y-auto hide-scrollbar px-4 pt-3 pb-24 space-y-4">
+<!-- BEGIN: DonutSummaryCard -->
+<!-- Visual circular overview card matching modern fintech aesthetics -->
+<section class="bg-gradient-to-b from-blue-100/50 via-slate-50/50 to-white p-5 rounded-3xl border border-blue-100 shadow-soft" data-purpose="balance-chart-card">
+<div class="flex flex-col items-center">
+<!-- Radial Chart & Balance View -->
+<div class="relative w-44 h-44 flex items-center justify-center my-1">
+<svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+<!-- Background Ring -->
+<circle class="donut-circle-bg" cx="50" cy="50" fill="transparent" r="38" stroke-width="12"></circle>
+<!-- Normal Muddatda: 65% (Dasharray: ~155 / ~238.76 total circumference) -->
+<circle class="donut-circle-purple" cx="50" cy="50" fill="transparent" r="38" stroke-dasharray="155 238.76" stroke-dashoffset="0" stroke-width="12" style="stroke: rgb(37, 99, 235);"></circle>
+<!-- Yaqinlashayotgan: 20% (Dasharray: ~47.7 / 238.76) -->
+<circle class="donut-circle-amber" cx="50" cy="50" fill="transparent" r="38" stroke-dasharray="47.7 238.76" stroke-dashoffset="-155" stroke-width="12"></circle>
+<!-- Muddati o'tgan: 15% (Dasharray: ~36 / 238.76) -->
+<circle class="donut-circle-red" cx="50" cy="50" fill="transparent" r="38" stroke-dasharray="35.8 238.76" stroke-dashoffset="-202.7" stroke-width="12"></circle>
+</svg>
+<!-- Chart Center Content -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-[11px] font-semibold text-slate-400 tracking-wider uppercase">Jami qarz</span>
+<span class="text-xl font-extrabold text-slate-900 tracking-tight">45.2M</span>
+<span class="text-[10px] font-bold text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded mt-0.5">UZS</span>
+</div>
+</div>
+<!-- Chart Breakdown Badges / Legend Rows -->
+<div class="w-full mt-3 space-y-2">
+<!-- Overdue Badge -->
+<div class="flex items-center justify-between p-2.5 rounded-2xl bg-rose-50/80 border border-rose-100">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-rose-200"></span>
+<span class="text-xs font-medium text-rose-950">Muddati o'tgan</span>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold text-rose-600">6 780 000 UZS</span>
+<span class="text-[10px] ml-1 font-semibold text-rose-500 bg-white px-1.5 py-0.5 rounded-full shadow-sm">7 kishi</span>
+</div>
+</div>
+<!-- Due in 3 days Badge -->
+<div class="flex items-center justify-between p-2.5 rounded-2xl bg-amber-50/80 border border-amber-100">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-200"></span>
+<span class="text-xs font-medium text-amber-950">3 kun qolgan</span>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold text-amber-700">4 150 000 UZS</span>
+<span class="text-[10px] ml-1 font-semibold text-amber-600 bg-white px-1.5 py-0.5 rounded-full shadow-sm">4 kishi</span>
+</div>
+</div>
+<!-- Normal Muddat Badge -->
+<div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 rounded-full bg-blue-600 ring-2 ring-blue-200"></span>
+<span class="text-xs font-medium text-slate-700">Muddati bor</span>
+</div>
+<div>
+<span class="text-xs font-bold text-slate-800">34 270 000 UZS</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DonutSummaryCard -->
+<!-- BEGIN: FilterTabs -->
+<nav aria-label="Filtr bo'limi" class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-1">
+<button class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-sm whitespace-nowrap active:scale-95 transition-transform">Hammasi (38)</button>
+<button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-rose-100/70 text-rose-700 border border-rose-200 whitespace-nowrap active:scale-95 transition-transform">
+          ⚠️ Muddati o'tgan (7)
+        </button>
+<button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-amber-100/70 text-amber-800 border border-amber-200 whitespace-nowrap active:scale-95 transition-transform">
+          ⏳ Yaqinlashayotgan (4)
+        </button>
+</nav>
+<!-- END: FilterTabs -->
+<!-- BEGIN: DebtListSection -->
+<div class="space-y-4">
+<!-- Group 1: Overdue Group -->
+<section class="space-y-2.5" data-purpose="debt-group-overdue">
+<div class="flex items-center justify-between px-1">
+<span class="text-[11px] font-bold text-rose-600 tracking-wider uppercase flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-rose-500"></span>
+              Muddati o'tgan (Qizil zona)
+            </span>
+<span class="text-[11px] font-semibold text-rose-500">7 ta mijoz</span>
+</div>
+<!-- Card 1 -->
+<article class="bg-white rounded-2xl p-3.5 border border-rose-100 shadow-card relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+<div class="flex items-start justify-between pl-1">
+<div class="space-y-1">
+<div class="flex items-center space-x-1.5">
+<h3 class="text-sm font-semibold text-slate-900 leading-tight">Ahmad aka</h3>
+<span class="text-[11px] text-slate-500">(stomatolog)</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                    3 kun kechikkan
+                  </span>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-extrabold text-slate-900">550 000</div>
+<div class="text-[10px] text-slate-400 font-medium">UZS</div>
+</div>
+</div>
+<!-- Quick Action -->
+<div class="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
+<button class="inline-flex items-center space-x-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-xl border border-rose-200 transition-colors active:scale-95">
+<svg class="w-3.5 h-3.5 text-rose-600" fill="currentColor" viewBox="0 0 20 20">
+<path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+</svg>
+<span class="">Eslatma yuborish</span>
+</button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-white rounded-2xl p-3.5 border border-rose-100 shadow-card relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+<div class="flex items-start justify-between pl-1">
+<div class="space-y-1">
+<div class="flex items-center space-x-1.5">
+<h3 class="text-sm font-semibold text-slate-900 leading-tight">Rustam aka</h3>
+<span class="text-[11px] text-slate-500">(sartarosh)</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                    12 kun kechikkan
+                  </span>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-extrabold text-slate-900">1 200 000</div>
+<div class="text-[10px] text-slate-400 font-medium">UZS</div>
+</div>
+</div>
+<!-- Quick Action -->
+<div class="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
+<button class="inline-flex items-center space-x-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1.5 rounded-xl border border-rose-200 transition-colors active:scale-95">
+<svg class="w-3.5 h-3.5 text-rose-600" fill="currentColor" viewBox="0 0 20 20">
+<path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+</svg>
+<span class="">Eslatma yuborish</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Group 2: Approaching Due Date -->
+<section class="space-y-2.5 pt-1" data-purpose="debt-group-approaching">
+<div class="flex items-center justify-between px-1">
+<span class="text-[11px] font-bold text-amber-700 tracking-wider uppercase flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              3 kun ichida to'lanishi kerak
+            </span>
+<span class="text-[11px] font-semibold text-amber-600">4 ta mijoz</span>
+</div>
+<!-- Card 3 -->
+<article class="bg-white rounded-2xl p-3.5 border border-amber-100 shadow-card relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+<div class="flex items-center justify-between pl-1">
+<div class="space-y-1">
+<div class="flex items-center space-x-1.5">
+<h3 class="text-sm font-semibold text-slate-900 leading-tight">Botir aka</h3>
+<span class="text-[11px] text-slate-500">(usta)</span>
+</div>
+<div>
+<span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/60 px-2 py-0.5 rounded-md">
+                    Bugun muddati
+                  </span>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="text-right">
+<div class="text-sm font-extrabold text-slate-900">480 000</div>
+<div class="text-[10px] text-slate-400 font-medium">UZS</div>
+</div>
+<button class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-xl transition-colors active:scale-95">
+                  Ko'rish
+                </button>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-100 shadow-card relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-amber-400"></div>
+<div class="flex items-center justify-between pl-1">
+<div class="space-y-1">
+<div class="flex items-center space-x-1.5">
+<h3 class="text-sm font-semibold text-slate-900 leading-tight">Olimjon</h3>
+<span class="text-[11px] text-slate-500">(oshpaz)</span>
+</div>
+<div>
+<span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
+                    Ertaga muddati
+                  </span>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="text-right">
+<div class="text-sm font-extrabold text-slate-900">890 000</div>
+<div class="text-[10px] text-slate-400 font-medium">UZS</div>
+</div>
+<button class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-xl transition-colors active:scale-95">
+                  Ko'rish
+                </button>
+</div>
+</div>
+</article>
+</section>
+</div>
+<!-- END: DebtListSection -->
+</div>
+<!-- END: ScrollableContent -->
+<!-- BEGIN: BottomNavigationBar -->
+<!-- Fixed iOS Bottom Tab Bar with Telegram App ergonomics -->
+<nav aria-label="Asosiy menyu" class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-slate-200/80 px-6 pt-2 safe-bottom flex items-center justify-between z-30">
+<!-- Tab: Mijozlar -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-600 active:scale-90 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium mt-1">Mijozlar</span>
+</button>
+<!-- Tab: Qarzlar (Active) -->
+<button class="flex flex-col items-center justify-center text-blue-600 active:scale-90 transition-transform relative"><div class="relative"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="absolute -top-1 -right-1.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white"></span></div><span class="text-[10px] font-bold mt-1">Qarzlar</span></button>
+<!-- Tab: Hisobotlar -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-600 active:scale-90 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium mt-1">Hisobotlar</span>
+</button>
+<!-- Tab: Sozlamalar -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-600 active:scale-90 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium mt-1">Sozlamalar</span>
+</button>
+</nav>
+<!-- END: BottomNavigationBar -->
+</main>
+<!-- END: MainContainer -->
+<!-- BEGIN: Interactive Feedback Script -->
+<script data-purpose="telegram-haptic-simulation">
+    // Simulation of subtle click reactions for Telegram Mini App environment
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+          window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+        }
+      });
+    });
+  </script>
+<!-- END: Interactive Feedback Script -->
+
+
+</body></html>
